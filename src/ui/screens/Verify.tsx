@@ -17,9 +17,22 @@ import * as Yup from 'yup';
 import authFirebase from '../../services/firebase/auth';
 import Loading from '../components/Loading';
 import {routes} from '../../navigation/routes';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {AuthParamList} from '../../navigation/AuthNavigator';
 
-const Verify = ({navigation}) => {
-  const {loading, createUser} = authFirebase();
+const verifyValidationSchema = Yup.object().shape({
+  numberOne: Yup.string().required('This field is required'),
+  numberTwo: Yup.string().required('This field is required'),
+  numberThree: Yup.string().required('This field is required'),
+  numberFour: Yup.string().required('This field is required'),
+  numberFive: Yup.string().required('This field is required'),
+  numberSix: Yup.string().required('This field is required'),
+});
+
+type VerifyProps = NativeStackScreenProps<AuthParamList, 'VerifyScreen'>;
+
+const Verify = ({navigation}: VerifyProps) => {
+  const {loading} = authFirebase();
 
   const verifyIntialValue = {
     numberOne: '',
@@ -30,16 +43,7 @@ const Verify = ({navigation}) => {
     numberSix: '',
   };
 
-  const verifyValidationSchema = Yup.object().shape({
-    numberOne: Yup.string().required('This field is required'),
-    numberTwo: Yup.string().required('This field is required'),
-    numberThree: Yup.string().required('This field is required'),
-    numberFour: Yup.string().required('This field is required'),
-    numberFive: Yup.string().required('This field is required'),
-    numberSix: Yup.string().required('This field is required'),
-  });
-
-  const handleContinue = values => {
+  const handleContinue = () => {
     navigation.navigate(routes.PASSWORD);
   };
 
@@ -53,9 +57,7 @@ const Verify = ({navigation}) => {
       <View style={styles.statusContainer} />
       <View style={styles.backContainer}>
         <TouchableOpacity onPress={onClickBack}>
-          <Text style={{fontFamily: 'Nunito', fontSize: 12, color: '#5A5D82'}}>
-            {'<'} Back
-          </Text>
+          <Text style={styles.backText}>{'<'} Back</Text>
         </TouchableOpacity>
       </View>
       <KeyboardAwareScrollView>
@@ -75,7 +77,7 @@ const Verify = ({navigation}) => {
               initialValues={verifyIntialValue}
               onSubmit={handleContinue}
               validationSchema={verifyValidationSchema}>
-              {({values, errors, touched, handleChange, handleSubmit}) => (
+              {({values, handleChange, handleSubmit}) => (
                 <>
                   <View style={styles.verifyContainer}>
                     <CustomNumberInput
@@ -145,6 +147,11 @@ const styles = StyleSheet.create({
     marginLeft: units.width / 37.5,
     width: 120,
     height: 20,
+  },
+  backText: {
+    fontFamily: 'Nunito',
+    fontSize: 12,
+    color: '#5A5D82',
   },
   container: {
     flex: 1,

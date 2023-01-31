@@ -1,21 +1,24 @@
-import {StyleSheet, TextInput, TouchableOpacity, View} from 'react-native';
+import {KeyboardTypeOptions, StyleSheet, TextInput, View} from 'react-native';
 import React, {useState} from 'react';
 import {colors} from '../../themes/Colors';
 import {units} from '../../themes/Units';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const CustomeNumberInput = ({
+type CustomNumberInputProps = {
+  value: string;
+  placeHolder?: string;
+  onChangeText: (text: string) => void;
+  secure?: boolean;
+  type: KeyboardTypeOptions;
+};
+
+const CustomNumberInput = ({
   value,
   placeHolder,
   onChangeText,
   secure,
   type,
-}) => {
-  const [showPassword, setShowPassword] = useState(secure);
-
-  const handleIcon = () => {
-    setShowPassword(!showPassword);
-  };
+}: CustomNumberInputProps) => {
+  const [showPassword] = useState(secure);
 
   return (
     <View style={styles.container}>
@@ -33,7 +36,7 @@ const CustomeNumberInput = ({
   );
 };
 
-export default CustomeNumberInput;
+export default CustomNumberInput;
 
 const styles = StyleSheet.create({
   container: {

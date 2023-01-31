@@ -7,10 +7,22 @@ import LoginMain from '../ui/screens/LoginMain';
 import Register from '../ui/screens/Register';
 import Verify from '../ui/screens/Verify';
 import Password from '../ui/screens/Password';
-import Home from '../ui/screens/Home';
-import HomeNavigator from './HomeNavigator';
 
-const Stack = createNativeStackNavigator();
+export type AuthParamList = {
+  [K in typeof routes.MAIN]: undefined;
+} & {
+  [K in typeof routes.LOGINMAIN]: undefined;
+} & {
+  [K in typeof routes.LOGIN]: undefined;
+} & {
+  [K in typeof routes.REGISTER]: undefined;
+} & {
+  [K in typeof routes.VERIFY]: undefined;
+} & {
+  [K in typeof routes.PASSWORD]: undefined;
+};
+
+const Stack = createNativeStackNavigator<AuthParamList>();
 
 const AuthNavigator = () => {
   return (
@@ -25,7 +37,6 @@ const AuthNavigator = () => {
         <Stack.Screen name={routes.VERIFY} component={Verify} />
         <Stack.Screen name={routes.PASSWORD} component={Password} />
       </Stack.Group>
-      {/* <HomeNavigator /> */}
     </Stack.Navigator>
   );
 };

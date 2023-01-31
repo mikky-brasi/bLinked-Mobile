@@ -1,6 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {initialStates} from './initalStates';
-import {showMessage} from 'react-native-flash-message';
+import {initialStates} from './initialStates';
 
 export const userSlicer = createSlice({
   name: 'userSlice',

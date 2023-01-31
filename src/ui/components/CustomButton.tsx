@@ -3,7 +3,19 @@ import React from 'react';
 import {colors} from '../../themes/Colors';
 import {units} from '../../themes/Units';
 
-const CustomButton = ({title, onPress, backColor, fontColor}) => {
+type CustomButtonProps = {
+  title: string;
+  onPress: () => void;
+  backColor: string;
+  fontColor: string;
+};
+
+const CustomButton = ({
+  title,
+  onPress,
+  backColor,
+  fontColor,
+}: CustomButtonProps) => {
   return (
     <TouchableOpacity
       onPress={onPress}

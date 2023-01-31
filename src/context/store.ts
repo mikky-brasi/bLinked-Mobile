@@ -8,3 +8,5 @@ export const store = configureStore({
       serializableCheck: false,
     }),
 });
+
+export type StoreState = ReturnType<typeof store.getState>;

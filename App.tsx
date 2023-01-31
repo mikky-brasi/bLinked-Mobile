@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import AppNavigator from './src/navigation/AppNavigator';
 import FlashMessage from 'react-native-flash-message';
 import {Provider} from 'react-redux';
