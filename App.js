@@ -10,12 +10,12 @@ const App = () => {
   const perStore = persistStore(store);
 
   return (
-      <Provider store={store}>
-        <PersistGate persistor={perStore}>
-          <AppNavigator />
-          <FlashMessage position="top" />
-        </PersistGate>
-      </Provider>
+    <Provider store={store}>
+      <PersistGate persistor={perStore}>
+        <AppNavigator />
+        <FlashMessage position="top" />
+      </PersistGate>
+    </Provider>
   );
 };
 

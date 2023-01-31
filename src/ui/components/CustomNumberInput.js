@@ -4,7 +4,13 @@ import {colors} from '../../themes/Colors';
 import {units} from '../../themes/Units';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const CustomeNumberInput = ({value, placeHolder, onChangeText, secure, type}) => {
+const CustomeNumberInput = ({
+  value,
+  placeHolder,
+  onChangeText,
+  secure,
+  type,
+}) => {
   const [showPassword, setShowPassword] = useState(secure);
 
   const handleIcon = () => {

@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   input: {
     fontSize: 18,
     flex: 1,
-    fontFamily: 'Museo Sans'
+    fontFamily: 'Museo Sans',
   },
   icon: {
     marginRight: units.width / 16,

@@ -5,7 +5,6 @@ import {units} from '../../themes/Units';
 import {useSelector} from 'react-redux';
 
 const Favorites = () => {
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topContainer}>

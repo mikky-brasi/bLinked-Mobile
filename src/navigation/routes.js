@@ -10,5 +10,5 @@ export const routes = {
   USER: 'UserTabScreen',
   HOME: 'HomeScreen',
   OPTION: 'OptionScreen',
-  HISTORY: 'HistoryScreen'
+  HISTORY: 'HistoryScreen',
 };

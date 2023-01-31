@@ -5,7 +5,9 @@ import {units} from '../../themes/Units';
 
 const CustomButton = ({title, onPress, backColor, fontColor}) => {
   return (
-    <TouchableOpacity onPress={onPress} style={[styles.container, {backgroundColor: backColor}]}>
+    <TouchableOpacity
+      onPress={onPress}
+      style={[styles.container, {backgroundColor: backColor}]}>
       <Text style={[styles.title, {color: fontColor}]}>{title}</Text>
     </TouchableOpacity>
   );

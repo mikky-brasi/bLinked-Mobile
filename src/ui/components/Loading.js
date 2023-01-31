@@ -4,9 +4,7 @@ import {View, StyleSheet, Image} from 'react-native';
 const Loading = () => {
   return (
     <View style={styles.overlay}>
-      <Image
-        source={require('../../assets/images/Mark.png')}
-      />
+      <Image source={require('../../assets/images/Mark.png')} />
     </View>
   );
 };

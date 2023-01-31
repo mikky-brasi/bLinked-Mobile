@@ -12,5 +12,5 @@ export const colors = {
   GREEN: '#36C07E',
   LIGHTORANGE: '#ffa479',
   DARKORANGE: '#c54121',
-  PURPLE: '#3842B0'
+  PURPLE: '#3842B0',
 };

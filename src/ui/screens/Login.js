@@ -4,7 +4,7 @@ import {
   View,
   SafeAreaView,
   TouchableOpacity,
-  Image
+  Image,
 } from 'react-native';
 import React from 'react';
 import CustomInput from '../components/CustomInput';
@@ -41,21 +41,26 @@ const Login = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       {loading && <Loading />}
-      <View style={styles.statusContainer}>
-
-			</View>
+      <View style={styles.statusContainer} />
       <View style={styles.helpContainer}>
-				<Text style={{fontFamily: 'Noto Sans JP', fontSize: 16, color: colors.PURPLE}}>Help</Text>
-			</View>
+        <Text
+          style={{
+            fontFamily: 'Noto Sans JP',
+            fontSize: 16,
+            color: colors.PURPLE,
+          }}>
+          Help
+        </Text>
+      </View>
       <KeyboardAwareScrollView>
         <View style={styles.bodyContainer}>
           <View style={styles.logoContainer}>
-						<Image source={require('../../assets/images/Logo-2.png')} />
-					</View>
+            <Image source={require('../../assets/images/Logo-2.png')} />
+          </View>
           <View style={styles.textContainer}>
-						<Text style={styles.text1}>Hello Buddy,</Text>
-						<Text style={styles.text2}>Welcome, log in to your account</Text>
-					</View>
+            <Text style={styles.text1}>Hello Buddy,</Text>
+            <Text style={styles.text2}>Welcome, log in to your account</Text>
+          </View>
           <Formik
             initialValues={initailLoginValue}
             onSubmit={handeleLogin}
@@ -78,7 +83,12 @@ const Login = ({navigation}) => {
                     <Text style={styles.forgotText}>Forgot Password ?</Text>
                   </TouchableOpacity>
                   <View style={styles.loginContainer}>
-                    <CustomButton title="Continue" onPress={handleSubmit} backColor={colors.PURPLE} fontColor={colors.WHITE} />
+                    <CustomButton
+                      title="Continue"
+                      onPress={handleSubmit}
+                      backColor={colors.PURPLE}
+                      fontColor={colors.WHITE}
+                    />
                     <View style={styles.signUpContainer}>
                       <TouchableOpacity onPress={onClickSignUp}>
                         <Text style={styles.signUpText}>
@@ -101,17 +111,17 @@ export default Login;
 
 const styles = StyleSheet.create({
   statusContainer: {
-		width: units.width,
-		height: units.height / 18.65
-	},
+    width: units.width,
+    height: units.height / 18.65,
+  },
   helpContainer: {
-		marginTop: units.height / 58.64,
-		paddingRight: units.width / 51.31,
-		width: '100%',
+    marginTop: units.height / 58.64,
+    paddingRight: units.width / 51.31,
+    width: '100%',
     display: 'flex',
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
-	},
+  },
   container: {
     flex: 1,
     backgroundColor: colors.WHITE,
@@ -121,30 +131,30 @@ const styles = StyleSheet.create({
     // marginTop: units.height / 40,
   },
   logoContainer: {
-		width: '100%',
-		display: 'flex',
-		justifyContent: 'center',
-		alignItems: 'center',
-	},
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   textContainer: {
-		marginTop: units.height / 23.45
-	},
-	text1: {
-		fontFamily: 'Noto Sans JP',
-		fontSize: 16,
-		textAlign: 'center',
-		color: '#626a7a',
-		lineHeight: 20
-	},
-	text2: {
-		marginTop: units.height / 58.64,
-		fontFamily: 'Inter',
-		fontWeight: '600',
-		fontSize: 16,
-		lineHeight: 19,
-		color: '#1d242e',
-		textAlign: 'center'
-	},
+    marginTop: units.height / 23.45,
+  },
+  text1: {
+    fontFamily: 'Noto Sans JP',
+    fontSize: 16,
+    textAlign: 'center',
+    color: '#626a7a',
+    lineHeight: 20,
+  },
+  text2: {
+    marginTop: units.height / 58.64,
+    fontFamily: 'Inter',
+    fontWeight: '600',
+    fontSize: 16,
+    lineHeight: 19,
+    color: '#1d242e',
+    textAlign: 'center',
+  },
   emailText: {
     color: colors.DARKGRAY,
     fontSize: 16,
@@ -158,7 +168,7 @@ const styles = StyleSheet.create({
   forgotText: {
     color: colors.PURPLE,
     fontFamily: 'Museo Sans',
-    fontSize: 16
+    fontSize: 16,
   },
   loginContainer: {
     marginVertical: units.height / 25,
@@ -183,12 +193,12 @@ const styles = StyleSheet.create({
     marginTop: units.height / 101,
   },
   signUpText: {
-		color: colors.PURPLE,
-		textDecorationLine: 'underline',
-		textDecorationColor: colors.PURPLE,
-		textDecorationStyle: 'solid',
-		fontFamily: 'Noto Sans JP',
-		fontWeight: '500',
-		fontSize: 14
-	}
+    color: colors.PURPLE,
+    textDecorationLine: 'underline',
+    textDecorationColor: colors.PURPLE,
+    textDecorationStyle: 'solid',
+    fontFamily: 'Noto Sans JP',
+    fontWeight: '500',
+    fontSize: 14,
+  },
 });
