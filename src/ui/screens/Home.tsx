@@ -32,7 +32,6 @@ const Home = () => {
   return (
     <SafeAreaView style={styles.container}>
       {loading && <Loading />}
-      <View style={styles.statusContainer} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.bodyContainer}>
           <View style={styles.topbar}>
@@ -57,9 +56,9 @@ const Home = () => {
               {isEnabled ? "I'm accepting orders" : 'I’m currently offline'}
             </Text>
             <Switch
-              trackColor={{false: '#CCCCCC', true: '#27AE60'}}
+              trackColor={{true: '#27AE60'}}
               thumbColor={isEnabled ? '#FFFFFF' : '#FFFFFF'}
-              ios_backgroundColor="#3e3e3e"
+              ios_backgroundColor="#ccc"
               onValueChange={toggleSwitch}
               value={isEnabled}
             />
@@ -172,12 +171,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F6F7F8',
   },
-  statusContainer: {
-    width: units.width,
-    height: units.height / 18.65,
-  },
   bodyContainer: {
-    paddingHorizontal: units.width / 51.31,
+    paddingHorizontal: 16,
     marginTop: units.height / 63.15,
     marginBottom: units.height / 101,
   },

@@ -54,6 +54,7 @@ const Login = ({navigation}: VerifyProps) => {
             fontFamily: 'Noto Sans JP',
             fontSize: 16,
             color: colors.PURPLE,
+            marginRight: 8,
           }}>
           Help
         </Text>
@@ -73,7 +74,8 @@ const Login = ({navigation}: VerifyProps) => {
             validationSchema={loginValidationSchema}>
             {({values, errors, touched, handleChange, handleSubmit}) => (
               <>
-                <View style={{marginTop: units.height / 27}}>
+                <View
+                  style={{marginTop: units.height / 27, paddingHorizontal: 8}}>
                   <CustomInput
                     placeHolder="Password"
                     value={values.password}
@@ -175,6 +177,7 @@ const styles = StyleSheet.create({
     color: colors.PURPLE,
     fontFamily: 'Museo Sans',
     fontSize: 16,
+    marginLeft: 8,
   },
   loginContainer: {
     marginVertical: units.height / 25,

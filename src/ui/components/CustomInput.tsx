@@ -77,6 +77,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     flex: 1,
     fontFamily: 'Museo Sans',
+    paddingVertical: 8,
   },
   icon: {
     marginRight: units.width / 16,

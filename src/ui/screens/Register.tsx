@@ -43,10 +43,6 @@ const Register = ({navigation}: Props) => {
     navigation.navigate(routes.VERIFY);
   };
 
-  const onClickLogin = () => {
-    navigation.navigate(routes.LOGIN);
-  };
-
   const onClickBack = () => {
     navigation.goBack();
   };
@@ -62,7 +58,8 @@ const Register = ({navigation}: Props) => {
           </Text>
         </TouchableOpacity>
       </View>
-      <KeyboardAwareScrollView>
+      <KeyboardAwareScrollView
+        contentContainerStyle={styles.keyboardAwareContentContainer}>
         <View style={styles.bodyContainer}>
           <View style={styles.logoContainer}>
             <Image source={require('../../assets/images/Logo-2.png')} />
@@ -71,64 +68,55 @@ const Register = ({navigation}: Props) => {
             <Text style={styles.text1}>Let's get you started</Text>
             <Text style={styles.text2}>First of, let's get to know you</Text>
           </View>
-          <View>
-            <Formik
-              initialValues={registerIntialValue}
-              onSubmit={handleContinue}
-              validationSchema={registerValidationSchema}>
-              {({values, errors, touched, handleChange, handleSubmit}) => (
-                <>
-                  <View style={{marginTop: units.height / 20.52}}>
-                    <CustomInput
-                      placeHolder="Full Name"
-                      value={values.fullName}
-                      onChangeText={handleChange('fullName')}
-                    />
-                    {errors.fullName && touched.fullName && (
-                      <Text style={styles.errorText}>{errors.fullName}</Text>
-                    )}
-                  </View>
-                  <View style={{marginTop: units.height / 20.52}}>
-                    <CustomInput
-                      placeHolder="Phone number"
-                      value={values.phoneNumber}
-                      onChangeText={handleChange('phoneNumber')}
-                      type="phone-pad"
-                    />
-                    {errors.phoneNumber && touched.phoneNumber && (
-                      <Text style={styles.errorText}>{errors.phoneNumber}</Text>
-                    )}
-                  </View>
-                  <View style={{marginTop: units.height / 20.52}}>
-                    <CustomInput
-                      placeHolder="Email address"
-                      type="email-address"
-                      value={values.email}
-                      onChangeText={handleChange('email')}
-                    />
-                    {errors.email && touched.email && (
-                      <Text style={styles.errorText}>{errors.email}</Text>
-                    )}
-                  </View>
-                  <View style={styles.buttonContainer}>
-                    <CustomButton
-                      title="Continue"
-                      onPress={handleSubmit}
-                      backColor="#3842B0"
-                      fontColor="#FFFFFF"
-                    />
-                    <View style={styles.loginContainer}>
-                      <TouchableOpacity onPress={onClickLogin}>
-                        <Text style={styles.signInText}>
-                          Have an account already? Login
-                        </Text>
-                      </TouchableOpacity>
-                    </View>
-                  </View>
-                </>
-              )}
-            </Formik>
-          </View>
+          <Formik
+            initialValues={registerIntialValue}
+            onSubmit={handleContinue}
+            validationSchema={registerValidationSchema}>
+            {({values, errors, touched, handleChange, handleSubmit}) => (
+              <>
+                <View style={{marginTop: 38}}>
+                  <CustomInput
+                    placeHolder="Full Name"
+                    value={values.fullName}
+                    onChangeText={handleChange('fullName')}
+                  />
+                  {errors.fullName && touched.fullName && (
+                    <Text style={styles.errorText}>{errors.fullName}</Text>
+                  )}
+                </View>
+                <View style={{marginTop: 38}}>
+                  <CustomInput
+                    placeHolder="Phone number"
+                    value={values.phoneNumber}
+                    onChangeText={handleChange('phoneNumber')}
+                    type="phone-pad"
+                  />
+                  {errors.phoneNumber && touched.phoneNumber && (
+                    <Text style={styles.errorText}>{errors.phoneNumber}</Text>
+                  )}
+                </View>
+                <View style={{marginTop: 38}}>
+                  <CustomInput
+                    placeHolder="Email address"
+                    type="email-address"
+                    value={values.email}
+                    onChangeText={handleChange('email')}
+                  />
+                  {errors.email && touched.email && (
+                    <Text style={styles.errorText}>{errors.email}</Text>
+                  )}
+                </View>
+                <View style={styles.buttonContainer}>
+                  <CustomButton
+                    title="Continue"
+                    onPress={handleSubmit}
+                    backColor="#3842B0"
+                    fontColor="#FFFFFF"
+                  />
+                </View>
+              </>
+            )}
+          </Formik>
         </View>
       </KeyboardAwareScrollView>
     </SafeAreaView>
@@ -148,6 +136,9 @@ const styles = StyleSheet.create({
     width: 120,
     height: 20,
   },
+  keyboardAwareContentContainer: {
+    flexGrow: 1,
+  },
   container: {
     flex: 1,
     backgroundColor: colors.WHITE,
@@ -158,8 +149,9 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   bodyContainer: {
-    paddingHorizontal: units.width / 41.05,
+    paddingHorizontal: 16,
     marginTop: units.height / 25.62,
+    flexGrow: 1,
   },
   logoContainer: {
     width: '100%',
@@ -192,13 +184,7 @@ const styles = StyleSheet.create({
     marginBottom: units.height / 67,
   },
   buttonContainer: {
-    marginTop: units.height / 14.92,
-  },
-  loginContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: units.height / 25,
+    marginTop: 'auto',
   },
   line: {
     height: 1,
@@ -208,14 +194,5 @@ const styles = StyleSheet.create({
   errorText: {
     color: colors.ORANGE,
     marginTop: units.height / 101,
-  },
-  signInText: {
-    color: colors.PURPLE,
-    textDecorationLine: 'underline',
-    textDecorationColor: colors.PURPLE,
-    textDecorationStyle: 'solid',
-    fontFamily: 'Noto Sans JP',
-    fontWeight: '500',
-    fontSize: 14,
   },
 });
