@@ -4,8 +4,12 @@ import CustomButton from '../components/CustomButton';
 import {colors} from '../../themes/Colors';
 import {units} from '../../themes/Units';
 import {routes} from '../../navigation/routes';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {AuthParamList} from '../../navigation/AuthNavigator';
 
-const Main = ({navigation}) => {
+type Props = NativeStackScreenProps<AuthParamList, 'MainScreen'>;
+
+const Main = ({navigation}: Props) => {
   const GotoRegister = () => {
     navigation.navigate(routes.REGISTER);
   };

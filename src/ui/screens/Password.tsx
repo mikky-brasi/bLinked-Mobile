@@ -4,7 +4,6 @@ import {
   View,
   SafeAreaView,
   TouchableOpacity,
-  Image,
 } from 'react-native';
 import React from 'react';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -14,19 +13,23 @@ import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
-import authFirebase from '../../services/firebase/auth';
+import useFirebaseAuth from '../../services/firebase/auth';
 import Loading from '../components/Loading';
 import {routes} from '../../navigation/routes';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {AuthParamList} from '../../navigation/AuthNavigator';
 
-const Password = ({navigation}) => {
-  const {loading, createUser} = authFirebase();
+type PasswordProps = NativeStackScreenProps<AuthParamList, 'PasswordScreen'>;
+
+const Password = ({navigation}: PasswordProps) => {
+  const {loading} = useFirebaseAuth();
 
   const registerIntialValue = {
     password: '',
     rePassword: '',
   };
 
-  const registerValidationSchema = Yup.object().shape({
+  const registerValidationSchema = Yup.object({
     password: Yup.string()
       .min(6, 'Password must be a minimum of 6 characters')
       .required('This field is required'),
@@ -35,7 +38,7 @@ const Password = ({navigation}) => {
       .required('This field is required'),
   });
 
-  const handleContinue = values => {
+  const handleContinue = () => {
     navigation.navigate(routes.LOGIN);
   };
 

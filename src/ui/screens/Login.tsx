@@ -16,22 +16,28 @@ import * as Yup from 'yup';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {routes} from '../../navigation/routes';
 import Loading from '../components/Loading';
-import authFirebase from '../../services/firebase/auth';
+import useFirebaseAuth from '../../services/firebase/auth';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {AuthParamList} from '../../navigation/AuthNavigator';
 
-const Login = ({navigation}) => {
-  const {loading, loginUser} = authFirebase();
+const loginValidationSchema = Yup.object({
+  password: Yup.string().required('This field is required'),
+});
 
-  const initailLoginValue = {
-    email: '',
+type LoginFormValues = Yup.Asserts<typeof loginValidationSchema>;
+
+type VerifyProps = NativeStackScreenProps<AuthParamList, 'LoginScreen'>;
+
+const Login = ({navigation}: VerifyProps) => {
+  const {loading, loginUser} = useFirebaseAuth();
+
+  const initialLoginValue: LoginFormValues = {
     password: '',
   };
 
-  const loginValidationSchema = Yup.object().shape({
-    password: Yup.string().required('This field is required'),
-  });
-
-  const handeleLogin = values => {
-    loginUser(values.email, values.password);
+  const handleLogin = (values: LoginFormValues) => {
+    // TODO: is empty email correct?
+    loginUser('', values.password);
   };
 
   const onClickSignUp = () => {
@@ -62,8 +68,8 @@ const Login = ({navigation}) => {
             <Text style={styles.text2}>Welcome, log in to your account</Text>
           </View>
           <Formik
-            initialValues={initailLoginValue}
-            onSubmit={handeleLogin}
+            initialValues={initialLoginValue}
+            onSubmit={handleLogin}
             validationSchema={loginValidationSchema}>
             {({values, errors, touched, handleChange, handleSubmit}) => (
               <>

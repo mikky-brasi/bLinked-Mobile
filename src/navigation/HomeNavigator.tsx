@@ -56,15 +56,6 @@ const HomeNavigator = () => {
           ),
         }}
       />
-      {/* <Tab.Screen
-        name={routes.PROFILETAB}
-        component={ProfileNavigator}
-        options={{
-          tabBarIcon: ({color, size}) => (
-            <Icon name="account-circle" color={color} size={size} />
-          ),
-        }}
-      /> */}
     </Tab.Navigator>
   );
 };

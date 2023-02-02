@@ -5,23 +5,21 @@ import {
   View,
   SafeAreaView,
   TouchableOpacity,
-  FlatList,
   ScrollView,
   Switch,
 } from 'react-native';
 import React, {useState} from 'react';
 import {colors} from '../../themes/Colors';
 import {units} from '../../themes/Units';
-import {routes} from '../../navigation/routes';
 import {useDispatch} from 'react-redux';
 import {logOutAccount} from '../../context/userSlice';
 import Loading from '../components/Loading';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Octicons from 'react-native-vector-icons/Octicons';
-import authFirebase from '../../services/firebase/auth';
+import useFirebaseAuth from '../../services/firebase/auth';
 
-const Home = ({navigation}) => {
-  const {loading, createUser} = authFirebase();
+const Home = () => {
+  const {loading} = useFirebaseAuth();
   const [isEnabled, setIsEnabled] = useState(false);
   const dispatch = useDispatch();
 

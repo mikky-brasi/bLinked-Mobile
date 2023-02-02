@@ -14,12 +14,16 @@ import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
-import authFirebase from '../../services/firebase/auth';
+import useFirebaseAuth from '../../services/firebase/auth';
 import Loading from '../components/Loading';
 import {routes} from '../../navigation/routes';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {AuthParamList} from '../../navigation/AuthNavigator';
 
-const Register = ({navigation}) => {
-  const {loading, createUser} = authFirebase();
+type Props = NativeStackScreenProps<AuthParamList, 'RegisterScreen'>;
+
+const Register = ({navigation}: Props) => {
+  const {loading} = useFirebaseAuth();
 
   const registerIntialValue = {
     email: '',
@@ -35,7 +39,7 @@ const Register = ({navigation}) => {
     phoneNumber: Yup.string().required('This field is required'),
   });
 
-  const handleContinue = values => {
+  const handleContinue = () => {
     navigation.navigate(routes.VERIFY);
   };
 

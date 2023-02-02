@@ -14,7 +14,7 @@ import CustomNumberInput from '../components/CustomNumberInput';
 import CustomButton from '../components/CustomButton';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
-import authFirebase from '../../services/firebase/auth';
+import useFirebaseAuth from '../../services/firebase/auth';
 import Loading from '../components/Loading';
 import {routes} from '../../navigation/routes';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -32,7 +32,7 @@ const verifyValidationSchema = Yup.object().shape({
 type VerifyProps = NativeStackScreenProps<AuthParamList, 'VerifyScreen'>;
 
 const Verify = ({navigation}: VerifyProps) => {
-  const {loading} = authFirebase();
+  const {loading} = useFirebaseAuth();
 
   const verifyIntialValue = {
     numberOne: '',

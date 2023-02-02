@@ -1,8 +1,7 @@
-import {StyleSheet, Text, View, SafeAreaView, FlatList} from 'react-native';
+import {StyleSheet, Text, View, SafeAreaView} from 'react-native';
 import React from 'react';
 import {colors} from '../../themes/Colors';
 import {units} from '../../themes/Units';
-import {useSelector} from 'react-redux';
 
 const Favorites = () => {
   return (

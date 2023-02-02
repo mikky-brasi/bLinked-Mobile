@@ -3,12 +3,12 @@ import {useDispatch} from 'react-redux';
 import {loginAccount} from '../../context/userSlice';
 import {showMessage} from 'react-native-flash-message';
 
-const authFirebase = () => {
+const useFirebaseAuth = () => {
   const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
 
-  const loginUser = (email, password) => {
+  const loginUser = (_email: string, _password: string) => {
     setLoading(true);
     dispatch(loginAccount());
     showMessage({
@@ -18,9 +18,13 @@ const authFirebase = () => {
     setLoading(false);
   };
 
-  const createUser = (email, password, backLogin) => {};
+  const createUser = (
+    _email: string,
+    _password: string,
+    _backLogin: never, // TODO: type this
+  ) => {};
 
   return {loading, createUser, loginUser};
 };
 
-export default authFirebase;
+export default useFirebaseAuth;

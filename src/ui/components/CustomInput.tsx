@@ -1,10 +1,30 @@
-import {StyleSheet, TextInput, TouchableOpacity, View} from 'react-native';
+import {
+  KeyboardTypeOptions,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, {useState} from 'react';
 import {colors} from '../../themes/Colors';
 import {units} from '../../themes/Units';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const CustomInput = ({value, placeHolder, onChangeText, secure, type}) => {
+type Props = {
+  value: string;
+  placeHolder: string;
+  onChangeText: (text: string) => void;
+  secure?: boolean;
+  type?: KeyboardTypeOptions;
+};
+
+const CustomInput = ({
+  value,
+  placeHolder,
+  onChangeText,
+  secure,
+  type,
+}: Props) => {
   const [showPassword, setShowPassword] = useState(secure);
 
   const handleIcon = () => {
