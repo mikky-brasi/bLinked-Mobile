@@ -47,6 +47,10 @@ const Register = ({navigation}: Props) => {
     navigation.goBack();
   };
 
+  const goToLogin = () => {
+    navigation.navigate(routes.LOGINMAIN);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       {loading && <Loading />}
@@ -66,7 +70,7 @@ const Register = ({navigation}: Props) => {
           </View>
           <View style={styles.textContainer}>
             <Text style={styles.text1}>Let's get you started</Text>
-            <Text style={styles.text2}>First of, let's get to know you</Text>
+            <Text style={styles.text2}>First of, let’s get to know you 👇🏽</Text>
           </View>
           <Formik
             initialValues={registerIntialValue}
@@ -113,6 +117,14 @@ const Register = ({navigation}: Props) => {
                     backColor="#3842B0"
                     fontColor="#FFFFFF"
                   />
+                </View>
+
+                <View style={styles.signInContainer}>
+                  <TouchableOpacity onPress={goToLogin}>
+                    <Text style={styles.signInText}>
+                      Have an account already? Log in
+                    </Text>
+                  </TouchableOpacity>
                 </View>
               </>
             )}
@@ -184,7 +196,7 @@ const styles = StyleSheet.create({
     marginBottom: units.height / 67,
   },
   buttonContainer: {
-    marginTop: 'auto',
+    marginTop: 56,
   },
   line: {
     height: 1,
@@ -194,5 +206,20 @@ const styles = StyleSheet.create({
   errorText: {
     color: colors.ORANGE,
     marginTop: units.height / 101,
+  },
+  signInText: {
+    color: colors.PURPLE,
+    textDecorationLine: 'underline',
+    textDecorationColor: colors.PURPLE,
+    textDecorationStyle: 'solid',
+    fontFamily: 'Noto Sans JP',
+    fontWeight: '500',
+    fontSize: 14,
+  },
+  signInContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 24,
   },
 });

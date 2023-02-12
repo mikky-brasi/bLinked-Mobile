@@ -66,7 +66,7 @@ const Login = ({navigation}: VerifyProps) => {
           </View>
           <View style={styles.textContainer}>
             <Text style={styles.text1}>Hello Buddy,</Text>
-            <Text style={styles.text2}>Welcome, log in to your account</Text>
+            <Text style={styles.text2}>Welcome, log in to your account 👏🏽</Text>
           </View>
           <Formik
             initialValues={initialLoginValue}
