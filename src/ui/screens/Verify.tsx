@@ -4,7 +4,6 @@ import {
   View,
   SafeAreaView,
   TouchableOpacity,
-  Image,
 } from 'react-native';
 import React from 'react';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -19,6 +18,7 @@ import Loading from '../components/Loading';
 import {routes} from '../../navigation/routes';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {AuthParamList} from '../../navigation/AuthNavigator';
+import LogoSvg from '../../assets/images/Logo.svg';
 
 const verifyValidationSchema = Yup.object().shape({
   numberOne: Yup.string().required('This field is required'),
@@ -63,7 +63,7 @@ const Verify = ({navigation}: VerifyProps) => {
       <KeyboardAwareScrollView>
         <View style={styles.bodyContainer}>
           <View style={styles.logoContainer}>
-            <Image source={require('../../assets/images/Logo-2.png')} />
+            <LogoSvg width={127} />
           </View>
           <View style={styles.textContainer}>
             <Text style={styles.text1}>

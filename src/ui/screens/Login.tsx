@@ -4,7 +4,6 @@ import {
   View,
   SafeAreaView,
   TouchableOpacity,
-  Image,
 } from 'react-native';
 import React from 'react';
 import CustomInput from '../components/CustomInput';
@@ -19,6 +18,7 @@ import Loading from '../components/Loading';
 import useFirebaseAuth from '../../services/firebase/auth';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {AuthParamList} from '../../navigation/AuthNavigator';
+import LogoSvg from '../../assets/images/Logo.svg';
 
 const loginValidationSchema = Yup.object({
   password: Yup.string().required('This field is required'),
@@ -62,7 +62,7 @@ const Login = ({navigation}: VerifyProps) => {
       <KeyboardAwareScrollView>
         <View style={styles.bodyContainer}>
           <View style={styles.logoContainer}>
-            <Image source={require('../../assets/images/Logo-2.png')} />
+            <LogoSvg width={127} />
           </View>
           <View style={styles.textContainer}>
             <Text style={styles.text1}>Hello Buddy,</Text>

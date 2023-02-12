@@ -6,6 +6,7 @@ import {units} from '../../themes/Units';
 import {routes} from '../../navigation/routes';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {AuthParamList} from '../../navigation/AuthNavigator';
+import LogoSvg from '../../assets/images/Logo.svg';
 
 type Props = NativeStackScreenProps<AuthParamList, 'MainScreen'>;
 
@@ -22,7 +23,7 @@ const Main = ({navigation}: Props) => {
     <SafeAreaView style={styles.container}>
       <View style={styles.bodyContainer}>
         <View style={styles.logoContainer}>
-          <Image source={require('../../assets/images/Logo-1.png')} />
+          <LogoSvg />
         </View>
         <View style={styles.deliverContainer}>
           <Image source={require('../../assets/images/deliver.png')} />

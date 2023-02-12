@@ -6,6 +6,7 @@ import {units} from '../../themes/Units';
 import {routes} from '../../navigation/routes';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {AuthParamList} from '../../navigation/AuthNavigator';
+import LogoSvg from '../../assets/images/Logo.svg';
 
 type Props = NativeStackScreenProps<AuthParamList, 'LoginMainScreen'>;
 
@@ -18,7 +19,7 @@ const LoginMain = ({navigation}: Props) => {
     <SafeAreaView style={styles.container}>
       <View style={styles.bodyContainer}>
         <View style={styles.logoContainer}>
-          <Image source={require('../../assets/images/Logo-1.png')} />
+          <LogoSvg />
         </View>
         <View style={styles.deliverContainer}>
           <Image source={require('../../assets/images/deliver.png')} />
@@ -53,8 +54,6 @@ export default LoginMain;
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
-    // backgroundColor: colors.WHITE,
     height: '100%',
     width: '100%',
   },
@@ -62,7 +61,6 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingHorizontal: units.width / 10.7,
     marginTop: units.height / 9.23,
-    // marginBottom: units.height / 15.32,
   },
   logoContainer: {
     width: '100%',
