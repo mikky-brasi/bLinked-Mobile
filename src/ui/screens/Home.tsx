@@ -70,7 +70,11 @@ const Home = () => {
               <Icon name="dots-vertical" size={20} color={'#444444'} />
             </View>
             <View style={styles.assignBody}>
-              <View style={styles.assignBodyHeader} />
+              <View style={styles.assignBodyHeader}>
+                <Text style={styles.assignBodyHeaderText1}>Now</Text>
+                <Text style={styles.assignBodyHeaderText2}>₦4,700.00</Text>
+              </View>
+
               <View style={styles.assignBodyMain}>
                 <View style={styles.assginDetails}>
                   <View style={styles.flexRow}>
@@ -235,6 +239,22 @@ const styles = StyleSheet.create({
     backgroundColor: '#2F80ED',
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 16,
+  },
+  assignBodyHeaderText1: {
+    fontSize: 10,
+    fontFamily: 'Noto Sans JP',
+    fontWeight: '500',
+    color: colors.WHITE,
+  },
+  assignBodyHeaderText2: {
+    fontSize: 12,
+    fontFamily: 'Noto Sans JP',
+    fontWeight: '700',
+    color: colors.WHITE,
   },
   assignBodyMain: {
     paddingHorizontal: units.width / 23.43,
