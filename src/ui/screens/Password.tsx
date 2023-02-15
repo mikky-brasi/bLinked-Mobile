@@ -1,10 +1,4 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  TouchableOpacity,
-} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {colors} from '../../themes/Colors';
@@ -18,13 +12,15 @@ import Loading from '../components/Loading';
 import {routes} from '../../navigation/routes';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {AuthParamList} from '../../navigation/AuthNavigator';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 type PasswordProps = NativeStackScreenProps<AuthParamList, 'PasswordScreen'>;
 
 const Password = ({navigation}: PasswordProps) => {
+  const insets = useSafeAreaInsets();
   const {loading} = useFirebaseAuth();
 
-  const registerIntialValue = {
+  const registerInitialValue = {
     password: '',
     rePassword: '',
   };
@@ -42,114 +38,74 @@ const Password = ({navigation}: PasswordProps) => {
     navigation.navigate(routes.LOGIN);
   };
 
-  const onClickBack = () => {
-    navigation.goBack();
-  };
-
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={[styles.container, {paddingBottom: insets.bottom}]}>
       {loading && <Loading />}
-      <View style={styles.greyContainer}>
-        <View style={styles.statusContainer} />
-        <View style={styles.backContainer}>
-          <TouchableOpacity onPress={onClickBack}>
-            <Text
-              style={{fontFamily: 'Nunito', fontSize: 12, color: '#5A5D82'}}>
-              {'<'} Back
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <Text style={styles.title}>Create Password</Text>
-      </View>
+
       <KeyboardAwareScrollView>
         <View style={styles.bodyContainer}>
-          <View style={styles.textContainer}>
-            <Text style={styles.text1}>
-              Create a password for your{'\n'}bLinked account.
-            </Text>
-          </View>
-          <View>
-            <Formik
-              initialValues={registerIntialValue}
-              onSubmit={handleContinue}
-              validationSchema={registerValidationSchema}>
-              {({values, errors, touched, handleChange, handleSubmit}) => (
-                <>
-                  <View style={{marginTop: units.height / 14.92}}>
-                    <CustomInput
-                      placeHolder="Password"
-                      value={values.password}
-                      onChangeText={handleChange('password')}
-                      secure
-                    />
-                    {errors.password && touched.password && (
-                      <Text style={styles.errorText}>{errors.password}</Text>
-                    )}
-                    <Text>Password strength</Text>
-                  </View>
-                  <View style={{marginTop: units.height / 14.92}}>
-                    <CustomInput
-                      placeHolder="Confirm Password"
-                      value={values.rePassword}
-                      onChangeText={handleChange('rePassword')}
-                      secure
-                    />
-                    {errors.rePassword && touched.rePassword && (
-                      <Text style={styles.errorText}>{errors.rePassword}</Text>
-                    )}
-                  </View>
-                  <View style={styles.buttonContainer}>
-                    <CustomButton
-                      title="Continue"
-                      onPress={handleSubmit}
-                      backColor="#3842B0"
-                      fontColor="#FFFFFF"
-                    />
-                  </View>
-                </>
-              )}
-            </Formik>
-          </View>
+          <Text style={styles.text1}>
+            Create a password for your{'\n'}bLinked account.
+          </Text>
+
+          <Formik
+            initialValues={registerInitialValue}
+            onSubmit={handleContinue}
+            validationSchema={registerValidationSchema}>
+            {({values, errors, touched, handleChange, handleSubmit}) => (
+              <>
+                <View style={styles.inputWrapper}>
+                  <CustomInput
+                    placeHolder="Password"
+                    value={values.password}
+                    onChangeText={handleChange('password')}
+                    secure
+                  />
+                  {errors.password && touched.password && (
+                    <Text style={styles.errorText}>{errors.password}</Text>
+                  )}
+                  <Text style={styles.passwordStrength}>Password strength</Text>
+                </View>
+
+                <View style={styles.inputWrapper}>
+                  <CustomInput
+                    placeHolder="Confirm Password"
+                    value={values.rePassword}
+                    onChangeText={handleChange('rePassword')}
+                    secure
+                  />
+                  {errors.rePassword && touched.rePassword && (
+                    <Text style={styles.errorText}>{errors.rePassword}</Text>
+                  )}
+                </View>
+
+                <View style={styles.buttonContainer}>
+                  <CustomButton
+                    title="Continue"
+                    onPress={handleSubmit}
+                    backColor="#3842B0"
+                    fontColor="#FFFFFF"
+                  />
+                </View>
+              </>
+            )}
+          </Formik>
         </View>
       </KeyboardAwareScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 
 export default Password;
 
 const styles = StyleSheet.create({
-  greyContainer: {
-    backgroundColor: '#3842B008',
-    height: units.height / 7.46,
-  },
-  statusContainer: {
-    width: units.width,
-    height: units.height / 18.65,
-  },
-  backContainer: {
-    marginTop: units.height / 35.69,
-    marginLeft: units.width / 37.5,
-    // width: 120,
-    height: 20,
-  },
   container: {
     flex: 1,
     backgroundColor: colors.WHITE,
   },
-  title: {
-    color: colors.BLACK,
-    fontSize: 16,
-    fontWeight: '700',
-    textAlign: 'center',
-    marginTop: (-1 * units.height) / 37.31,
-  },
   bodyContainer: {
-    paddingHorizontal: units.width / 41.05,
-    marginTop: units.height / 25.62,
-  },
-  textContainer: {
-    marginTop: units.height / 17.46,
+    paddingHorizontal: 16,
+    marginTop: 32,
   },
   text1: {
     fontFamily: 'Noto Sans JP',
@@ -189,5 +145,12 @@ const styles = StyleSheet.create({
     fontFamily: 'Noto Sans JP',
     fontWeight: '500',
     fontSize: 14,
+  },
+  passwordStrength: {
+    color: '#737A91',
+    marginTop: 4,
+  },
+  inputWrapper: {
+    marginTop: 32,
   },
 });

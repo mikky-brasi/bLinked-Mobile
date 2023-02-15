@@ -25,7 +25,7 @@ type Props = NativeStackScreenProps<AuthParamList, 'RegisterScreen'>;
 const Register = ({navigation}: Props) => {
   const {loading} = useFirebaseAuth();
 
-  const registerIntialValue = {
+  const registerInitialValue = {
     email: '',
     fullName: '',
     phoneNumber: '',
@@ -43,10 +43,6 @@ const Register = ({navigation}: Props) => {
     navigation.navigate(routes.VERIFY);
   };
 
-  const onClickBack = () => {
-    navigation.goBack();
-  };
-
   const goToLogin = () => {
     navigation.navigate(routes.LOGINMAIN);
   };
@@ -54,14 +50,7 @@ const Register = ({navigation}: Props) => {
   return (
     <SafeAreaView style={styles.container}>
       {loading && <Loading />}
-      <View style={styles.statusContainer} />
-      <View style={styles.backContainer}>
-        <TouchableOpacity onPress={onClickBack}>
-          <Text style={{fontFamily: 'Nunito', fontSize: 12, color: '#5A5D82'}}>
-            {'<'} Back
-          </Text>
-        </TouchableOpacity>
-      </View>
+
       <KeyboardAwareScrollView
         contentContainerStyle={styles.keyboardAwareContentContainer}>
         <View style={styles.bodyContainer}>
@@ -73,7 +62,7 @@ const Register = ({navigation}: Props) => {
             <Text style={styles.text2}>First of, let’s get to know you 👇🏽</Text>
           </View>
           <Formik
-            initialValues={registerIntialValue}
+            initialValues={registerInitialValue}
             onSubmit={handleContinue}
             validationSchema={registerValidationSchema}>
             {({values, errors, touched, handleChange, handleSubmit}) => (
@@ -138,16 +127,6 @@ const Register = ({navigation}: Props) => {
 export default Register;
 
 const styles = StyleSheet.create({
-  statusContainer: {
-    width: units.width,
-    height: units.height / 18.65,
-  },
-  backContainer: {
-    marginTop: units.height / 74.63,
-    marginLeft: units.width / 37.5,
-    width: 120,
-    height: 20,
-  },
   keyboardAwareContentContainer: {
     flexGrow: 1,
   },
@@ -162,7 +141,6 @@ const styles = StyleSheet.create({
   },
   bodyContainer: {
     paddingHorizontal: 16,
-    marginTop: units.height / 25.62,
     flexGrow: 1,
   },
   logoContainer: {

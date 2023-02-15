@@ -1,17 +1,11 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  TouchableOpacity,
-} from 'react-native';
-import React from 'react';
+import {StyleSheet, Text, View, SafeAreaView, TextInput} from 'react-native';
+import React, {Ref, useRef} from 'react';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {colors} from '../../themes/Colors';
 import {units} from '../../themes/Units';
 import CustomNumberInput from '../components/CustomNumberInput';
 import CustomButton from '../components/CustomButton';
-import {Formik} from 'formik';
+import {Formik, useField} from 'formik';
 import * as Yup from 'yup';
 import useFirebaseAuth from '../../services/firebase/auth';
 import Loading from '../components/Loading';
@@ -20,46 +14,41 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {AuthParamList} from '../../navigation/AuthNavigator';
 import LogoSvg from '../../assets/images/Logo.svg';
 
-const verifyValidationSchema = Yup.object().shape({
-  numberOne: Yup.string().required('This field is required'),
-  numberTwo: Yup.string().required('This field is required'),
-  numberThree: Yup.string().required('This field is required'),
-  numberFour: Yup.string().required('This field is required'),
-  numberFive: Yup.string().required('This field is required'),
-  numberSix: Yup.string().required('This field is required'),
+const verifyValidationSchema = Yup.object({
+  number0: Yup.string().required('This field is required'),
+  number1: Yup.string().required('This field is required'),
+  number2: Yup.string().required('This field is required'),
+  number3: Yup.string().required('This field is required'),
+  number4: Yup.string().required('This field is required'),
+  number5: Yup.string().required('This field is required'),
 });
+
+type VerifyFormValues = Yup.InferType<typeof verifyValidationSchema>;
 
 type VerifyProps = NativeStackScreenProps<AuthParamList, 'VerifyScreen'>;
 
 const Verify = ({navigation}: VerifyProps) => {
   const {loading} = useFirebaseAuth();
 
-  const verifyIntialValue = {
-    numberOne: '',
-    numberTwo: '',
-    numberThree: '',
-    numberFour: '',
-    numberFive: '',
-    numberSix: '',
-  };
+  const verifyInitialValue = {
+    number0: '',
+    number1: '',
+    number2: '',
+    number3: '',
+    number4: '',
+    number5: '',
+  } satisfies VerifyFormValues;
 
   const handleContinue = () => {
     navigation.navigate(routes.PASSWORD);
   };
 
-  const onClickBack = () => {
-    navigation.goBack();
-  };
+  const [inputRefs, focusOnRelative] = useOtpInputs();
 
   return (
     <SafeAreaView style={styles.container}>
       {loading && <Loading />}
-      <View style={styles.statusContainer} />
-      <View style={styles.backContainer}>
-        <TouchableOpacity onPress={onClickBack}>
-          <Text style={styles.backText}>{'<'} Back</Text>
-        </TouchableOpacity>
-      </View>
+
       <KeyboardAwareScrollView>
         <View style={styles.bodyContainer}>
           <View style={styles.logoContainer}>
@@ -74,42 +63,22 @@ const Verify = ({navigation}: VerifyProps) => {
           </View>
           <View>
             <Formik
-              initialValues={verifyIntialValue}
+              initialValues={verifyInitialValue}
               onSubmit={handleContinue}
               validationSchema={verifyValidationSchema}>
-              {({values, handleChange, handleSubmit}) => (
+              {({handleSubmit}) => (
                 <>
                   <View style={styles.verifyContainer}>
-                    <CustomNumberInput
-                      value={values.numberOne}
-                      onChangeText={handleChange('numberOne')}
-                      type="phone-pad"
-                    />
-                    <CustomNumberInput
-                      value={values.numberTwo}
-                      onChangeText={handleChange('numberTwo')}
-                      type="phone-pad"
-                    />
-                    <CustomNumberInput
-                      value={values.numberThree}
-                      onChangeText={handleChange('numberThree')}
-                      type="phone-pad"
-                    />
-                    <CustomNumberInput
-                      value={values.numberFour}
-                      onChangeText={handleChange('numberFour')}
-                      type="phone-pad"
-                    />
-                    <CustomNumberInput
-                      value={values.numberFive}
-                      onChangeText={handleChange('numberFive')}
-                      type="phone-pad"
-                    />
-                    <CustomNumberInput
-                      value={values.numberSix}
-                      onChangeText={handleChange('numberSix')}
-                      type="phone-pad"
-                    />
+                    {inputRefs.map((ref, index) => (
+                      <OtpCellInput
+                        index={index}
+                        inputRef={ref}
+                        onFocusOnRelative={relativeIndex =>
+                          focusOnRelative(index, relativeIndex)
+                        }
+                        key={index}
+                      />
+                    ))}
                   </View>
                   <View style={styles.buttonContainer}>
                     <CustomButton
@@ -138,21 +107,6 @@ const Verify = ({navigation}: VerifyProps) => {
 export default Verify;
 
 const styles = StyleSheet.create({
-  statusContainer: {
-    width: units.width,
-    height: units.height / 18.65,
-  },
-  backContainer: {
-    marginTop: units.height / 74.63,
-    marginLeft: units.width / 37.5,
-    width: 120,
-    height: 20,
-  },
-  backText: {
-    fontFamily: 'Nunito',
-    fontSize: 12,
-    color: '#5A5D82',
-  },
   container: {
     flex: 1,
     backgroundColor: colors.WHITE,
@@ -163,8 +117,8 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   bodyContainer: {
-    paddingHorizontal: units.width / 41.05,
-    marginTop: units.height / 25.62,
+    paddingHorizontal: 16,
+    marginTop: 12,
   },
   logoContainer: {
     width: '100%',
@@ -194,10 +148,10 @@ const styles = StyleSheet.create({
   verifyContainer: {
     display: 'flex',
     flexDirection: 'row',
-    marginTop: units.height / 25.65,
+    marginTop: 32,
   },
   buttonContainer: {
-    marginTop: units.height / 9.12,
+    marginTop: 92,
   },
   loginContainer: {
     flexDirection: 'row',
@@ -221,3 +175,59 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
+
+function useOtpInputs() {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const refs = Array.from({length: 6}, () => useRef<TextInput>(null));
+  const focusOnRelative = (index: number, relativeIndex: number) => {
+    const element = refs[index + relativeIndex]?.current;
+    if (!element) {
+      return false;
+    }
+
+    element.focus();
+    return true;
+  };
+
+  return [refs, focusOnRelative] as const;
+}
+
+type OtpCellInputProps = {
+  inputRef: Ref<TextInput>;
+  index: number;
+  onFocusOnRelative: (relativeIndex: number) => void;
+};
+
+function OtpCellInput(props: OtpCellInputProps) {
+  const {index, onFocusOnRelative} = props;
+  const name = `number${index}`;
+
+  const [fieldProps] = useField(name);
+
+  const handleChange = (text: string) => {
+    fieldProps.onChange(name)(text);
+
+    if (text.trim() !== '') {
+      onFocusOnRelative(1);
+    }
+  };
+
+  return (
+    <CustomNumberInput
+      value={fieldProps.value}
+      onChangeText={handleChange}
+      key={index}
+      type="phone-pad"
+      inputRef={props.inputRef}
+      selectTextOnFocus
+      onKeyPress={e => {
+        if (e.nativeEvent.key === 'Backspace') {
+          onFocusOnRelative(fieldProps.value === '' ? -1 : 0);
+          return;
+        }
+      }}
+      onBlur={fieldProps.onBlur(name)}
+      maxLength={1}
+    />
+  );
+}
