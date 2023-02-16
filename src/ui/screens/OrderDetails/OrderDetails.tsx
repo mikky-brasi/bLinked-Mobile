@@ -1,13 +1,19 @@
 import {useNavigation} from '@react-navigation/native';
+import {StackScreenProps} from '@react-navigation/stack';
 import React from 'react';
 import {Image, StyleSheet} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import BackBoldIcon from '../../../assets/icons/back-bold.svg';
+import {MainNavigatorParamList} from '../../../navigation/MainNavigator';
 import mapImage from './map.png';
 import {OrderDetailsBottomSheet} from './OrderDetailsBottomSheet';
 
-export function OrderDetails() {
+type Props = StackScreenProps<MainNavigatorParamList, 'OrderDetailsScreen'>;
+
+export function OrderDetails(props: Props) {
+  const {route} = props;
+  const {status} = route.params;
   const navigation = useNavigation();
 
   return (
@@ -22,7 +28,7 @@ export function OrderDetails() {
         <BackBoldIcon />
       </TouchableOpacity>
 
-      <OrderDetailsBottomSheet />
+      <OrderDetailsBottomSheet status={status} />
     </>
   );
 }

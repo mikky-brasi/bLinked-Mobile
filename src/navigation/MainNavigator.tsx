@@ -14,7 +14,7 @@ export type MainNavigatorParamList = {
 } & {
   [K in typeof routes.ORDERS]: undefined;
 } & {
-  [K in typeof routes.ORDERDETAILS]: undefined;
+  [K in typeof routes.ORDERDETAILS]: {status: 'new' | 'pending'};
 };
 
 const Stack = createStackNavigator<MainNavigatorParamList>();

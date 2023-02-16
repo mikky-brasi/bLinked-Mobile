@@ -1,10 +1,11 @@
 import {useNavigation} from '@react-navigation/core';
 import {StackNavigationProp} from '@react-navigation/stack';
 import React from 'react';
-import {View, Text, StyleSheet, Pressable} from 'react-native';
+import {Pressable, StyleSheet, Text, View} from 'react-native';
 import {MainNavigatorParamList} from '../../../navigation/MainNavigator';
 import {routes} from '../../../navigation/routes';
 import {colors} from '../../../themes/Colors';
+import {OrderStatusTag} from '../../components/OrderStatusTag';
 
 type OrderItemProps = {
   status: 'new' | 'pending' | 'fulfilled';
@@ -15,10 +16,13 @@ export function OrderItem(props: OrderItemProps) {
   const navigation =
     useNavigation<StackNavigationProp<MainNavigatorParamList>>();
 
+  let handlePress: (() => void) | undefined;
+  if (status !== 'fulfilled') {
+    handlePress = () => navigation.navigate(routes.ORDERDETAILS, {status});
+  }
+
   return (
-    <Pressable
-      style={styles.wrapper}
-      onPress={() => navigation.navigate(routes.ORDERDETAILS)}>
+    <Pressable style={styles.wrapper} onPress={handlePress}>
       <View style={styles.header}>
         <Text style={styles.title}>Order #15285046</Text>
         <Text style={styles.amount}>₦4,700.00</Text>
@@ -31,22 +35,7 @@ export function OrderItem(props: OrderItemProps) {
       <View style={styles.footer}>
         <Text style={styles.timestamp}>4mins ago</Text>
 
-        <View
-          style={[
-            styles.tag,
-            status === 'new' && styles.tagNew,
-            status === 'fulfilled' && styles.tagFulfilled,
-          ]}>
-          <Text
-            style={[
-              styles.tagText,
-              status === 'new' && styles.tagTextNew,
-              status === 'fulfilled' && styles.tagTextFulfilled,
-            ]}>
-            {status === 'new' && 'New'}
-            {status === 'fulfilled' && 'Fulfilled'}
-          </Text>
-        </View>
+        <OrderStatusTag status={status} />
       </View>
     </Pressable>
   );
@@ -96,28 +85,5 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '500',
     color: '#5C5C80',
-  },
-  tag: {
-    paddingHorizontal: 12,
-    paddingVertical: 1,
-    borderRadius: 22,
-  },
-  tagNew: {
-    backgroundColor: '#FCE3E5',
-  },
-  tagFulfilled: {
-    backgroundColor: '#E2FFE1',
-  },
-  tagText: {
-    fontFamily: 'Inter',
-    fontWeight: '500',
-    fontSize: 12,
-    lineHeight: 20,
-  },
-  tagTextNew: {
-    color: '#F25A68',
-  },
-  tagTextFulfilled: {
-    color: '#08AD04',
   },
 });

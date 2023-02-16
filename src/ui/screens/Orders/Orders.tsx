@@ -9,6 +9,7 @@ import {Animated, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {colors} from '../../../themes/Colors';
 import {CompletedOrders} from './CompletedOrders';
 import {NewOrders} from './NewOrders';
+import {PendingOrders} from './PendingOrders';
 
 type TabsParamList = {
   New: undefined;
@@ -27,7 +28,7 @@ export function Orders() {
         tabBar={props => <TabBar {...props} />}
         sceneContainerStyle={styles.navigatorScene}>
         <Tabs.Screen name="New" component={NewOrders} />
-        <Tabs.Screen name="Pending" component={Pending} />
+        <Tabs.Screen name="Pending" component={PendingOrders} />
         <Tabs.Screen name="Completed" component={CompletedOrders} />
       </Tabs.Navigator>
     </View>
@@ -190,7 +191,3 @@ const tabBarButtonStyles = StyleSheet.create({
     fontSize: 16,
   },
 });
-
-function Pending() {
-  return <View />;
-}

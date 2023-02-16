@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     borderColor: '#3842B0',
     borderWidth: 1,
     marginHorizontal: 20,
-    borderRadius: 12
+    borderRadius: 12,
   },
   title: {
     fontFamily: 'Noto Sans JP',

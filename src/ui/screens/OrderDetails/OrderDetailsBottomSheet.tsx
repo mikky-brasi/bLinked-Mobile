@@ -2,7 +2,7 @@ import BottomSheet, {
   BottomSheetView,
   useBottomSheetDynamicSnapPoints,
 } from '@gorhom/bottom-sheet';
-import React, {useEffect, useMemo, useRef} from 'react';
+import React, {useMemo, useRef} from 'react';
 import {
   Image,
   ImageStyle,
@@ -16,9 +16,15 @@ import SmsIcon from '../../../assets/icons/sms.svg';
 import WhatsappIcon from '../../../assets/icons/whatsapp.svg';
 import memojiSrc from '../../../assets/images/memoji.png';
 import {colors} from '../../../themes/Colors';
+import {OrderStatusTag} from '../../components/OrderStatusTag';
 import {useRelativeLayout} from '../../hooks/useLayout';
 
-export function OrderDetailsBottomSheet() {
+type OrderDetailsBottomSheetProps = {
+  status: 'new' | 'pending';
+};
+
+export function OrderDetailsBottomSheet(props: OrderDetailsBottomSheetProps) {
+  const {status} = props;
   const initialSnapPoints = useMemo(() => ['25%', 'CONTENT_HEIGHT'], []);
 
   const {
@@ -30,9 +36,23 @@ export function OrderDetailsBottomSheet() {
 
   const bottomSheetRef = React.useRef<BottomSheet>(null);
 
-  useEffect(() => {
-    bottomSheetRef.current?.expand();
-  });
+  let mainButton: {
+    title: string;
+    onPress?: () => void;
+  };
+
+  switch (status) {
+    case 'new':
+      mainButton = {
+        title: 'Start ride',
+      };
+      break;
+    case 'pending':
+      mainButton = {
+        title: 'Deliver order',
+      };
+      break;
+  }
 
   return (
     <BottomSheet
@@ -48,32 +68,34 @@ export function OrderDetailsBottomSheet() {
         <View style={styles.orderDetailsHeader}>
           <Text style={styles.orderDetailsTitle}>Order details</Text>
 
-          <View style={styles.tag}>
-            <Text style={styles.tagText}>New</Text>
-          </View>
+          <OrderStatusTag status={status} style={styles.tag} />
         </View>
 
         <Timeline />
 
-        <Text style={styles.customerDetailsTitle}>Customer details</Text>
+        {status !== 'pending' && (
+          <>
+            <Text style={styles.customerDetailsTitle}>Customer details</Text>
 
-        <View style={styles.customerDetailsContainer}>
-          <View style={styles.customerImageContainer}>
-            <Image source={memojiSrc} style={styles.customerImage} />
-          </View>
+            <View style={styles.customerDetailsContainer}>
+              <View style={styles.customerImageContainer}>
+                <Image source={memojiSrc} style={styles.customerImage} />
+              </View>
 
-          <Text style={styles.customerTitle}>Assurance Uwangue</Text>
+              <Text style={styles.customerTitle}>Assurance Uwangue</Text>
 
-          <View style={styles.contactButton}>
-            <WhatsappIcon />
-          </View>
+              <View style={styles.contactButton}>
+                <WhatsappIcon />
+              </View>
 
-          <View style={styles.contactButtonSeparator} />
+              <View style={styles.contactButtonSeparator} />
 
-          <View style={styles.contactButton}>
-            <SmsIcon />
-          </View>
-        </View>
+              <View style={styles.contactButton}>
+                <SmsIcon />
+              </View>
+            </View>
+          </>
+        )}
 
         <View style={styles.orderAmountContainer}>
           <Text style={styles.orderAmountLabel}>Order amount</Text>
@@ -81,8 +103,8 @@ export function OrderDetailsBottomSheet() {
           <Text style={styles.orderAmount}>₦4,700.00</Text>
         </View>
 
-        <Pressable style={styles.startRideButton}>
-          <Text style={styles.startRideText}>Start ride</Text>
+        <Pressable style={styles.startRideButton} onPress={mainButton.onPress}>
+          <Text style={styles.startRideText}>{mainButton.title}</Text>
         </Pressable>
 
         <SafeAreaView edges={['bottom']} />
@@ -119,17 +141,6 @@ const styles = StyleSheet.create({
   },
   tag: {
     marginRight: 16,
-    paddingHorizontal: 12,
-    paddingVertical: 1,
-    borderRadius: 22,
-    backgroundColor: '#FCE3E5',
-  },
-  tagText: {
-    fontFamily: 'Inter',
-    fontWeight: '500',
-    fontSize: 12,
-    lineHeight: 20,
-    color: '#F25A68',
   },
   customerDetailsTitle: {
     fontFamily: 'Noto Sans JP',
