@@ -17,16 +17,29 @@ import Loading from '../components/Loading';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Octicons from 'react-native-vector-icons/Octicons';
 import useFirebaseAuth from '../../services/firebase/auth';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {MainNavigatorParamList} from '../../navigation/MainNavigator';
+import {routes} from '../../navigation/routes';
+import {useNavigation} from '@react-navigation/core';
 
 const Home = () => {
   const {loading} = useFirebaseAuth();
   const [isEnabled, setIsEnabled] = useState(false);
   const dispatch = useDispatch();
 
+  const navigation =
+    useNavigation<
+      StackNavigationProp<MainNavigatorParamList, typeof routes['HOMETAB']>
+    >();
+
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
   const onClickLogout = () => {
     dispatch(logOutAccount());
+  };
+
+  const seeAllEarnings = () => {
+    navigation.navigate('EarningsScreen');
   };
 
   return (
@@ -108,7 +121,9 @@ const Home = () => {
           <View style={styles.earningContainer}>
             <View style={styles.earningHeader}>
               <Text style={styles.earningTitle}>My Earnings</Text>
-              <Text style={styles.seeAll}>See all</Text>
+              <Text style={styles.seeAll} onPress={seeAllEarnings}>
+                See all
+              </Text>
             </View>
             <View>
               <View style={styles.earningItem}>
