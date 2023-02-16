@@ -5,6 +5,7 @@ import {routes} from './routes';
 import {Earnings} from '../ui/screens/Earnings';
 import {BackButton} from '../ui/components/BackButton';
 import {Orders} from '../ui/screens/Orders/Orders';
+import {OrderDetails} from '../ui/screens/OrderDetails/OrderDetails';
 
 export type MainNavigatorParamList = {
   [K in typeof routes.HOMETAB]: undefined;
@@ -12,6 +13,8 @@ export type MainNavigatorParamList = {
   [K in typeof routes.EARNINGS]: undefined;
 } & {
   [K in typeof routes.ORDERS]: undefined;
+} & {
+  [K in typeof routes.ORDERDETAILS]: undefined;
 };
 
 const Stack = createStackNavigator<MainNavigatorParamList>();
@@ -52,6 +55,7 @@ export function MainNavigator() {
           headerTitle: '',
         }}
       />
+      <Stack.Screen name={routes.ORDERDETAILS} component={OrderDetails} />
     </Stack.Navigator>
   );
 }

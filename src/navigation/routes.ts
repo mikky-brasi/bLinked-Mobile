@@ -13,4 +13,5 @@ export const routes = {
   HISTORY: 'HistoryScreen',
   EARNINGS: 'EarningsScreen',
   ORDERS: 'OrdersScreen',
+  ORDERDETAILS: 'OrderDetailsScreen',
 } as const;

@@ -1,5 +1,9 @@
+import {useNavigation} from '@react-navigation/core';
+import {StackNavigationProp} from '@react-navigation/stack';
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Pressable} from 'react-native';
+import {MainNavigatorParamList} from '../../../navigation/MainNavigator';
+import {routes} from '../../../navigation/routes';
 import {colors} from '../../../themes/Colors';
 
 type OrderItemProps = {
@@ -8,9 +12,13 @@ type OrderItemProps = {
 
 export function OrderItem(props: OrderItemProps) {
   const {status} = props;
+  const navigation =
+    useNavigation<StackNavigationProp<MainNavigatorParamList>>();
 
   return (
-    <View style={styles.wrapper}>
+    <Pressable
+      style={styles.wrapper}
+      onPress={() => navigation.navigate(routes.ORDERDETAILS)}>
       <View style={styles.header}>
         <Text style={styles.title}>Order #15285046</Text>
         <Text style={styles.amount}>₦4,700.00</Text>
@@ -40,7 +48,7 @@ export function OrderItem(props: OrderItemProps) {
           </Text>
         </View>
       </View>
-    </View>
+    </Pressable>
   );
 }
 
