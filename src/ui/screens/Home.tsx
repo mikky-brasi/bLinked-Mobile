@@ -42,6 +42,10 @@ const Home = () => {
     navigation.navigate('EarningsScreen');
   };
 
+  const goToOrders = () => {
+    navigation.navigate('OrdersScreen');
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       {loading && <Loading />}
@@ -105,15 +109,16 @@ const Home = () => {
                   </View>
                 </View>
 
-                <View
+                <TouchableOpacity
                   style={[
                     styles.assignToDetail,
                     styles.flexRow,
                     {justifyContent: 'space-between', alignItems: 'center'},
-                  ]}>
+                  ]}
+                  onPress={goToOrders}>
                   <Text style={styles.detailText}>View details</Text>
                   <Text style={styles.detailText}>{'>'}</Text>
-                </View>
+                </TouchableOpacity>
               </View>
             </View>
           </View>

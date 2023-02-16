@@ -96,7 +96,6 @@ export function Earnings() {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: '#F6F7F8',
   },
   title: {
     color: colors.BLACK,
