@@ -12,10 +12,12 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		1659065C76C045E1A1C86642 /* Inter-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 05E41777DF1A4AC996A42064 /* Inter-Regular.ttf */; };
 		3AB39867A82946FE8C03CB00 /* NotoSansJP-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = BC03235B5CED4716B8E6E944 /* NotoSansJP-Medium.otf */; };
 		74C69D871F52472AB9513D55 /* NotoSansJP-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BB2D85267CFB4899B47455D9 /* NotoSansJP-Bold.otf */; };
 		7699B88040F8A987B510C191 /* libPods-bLinked-bLinkedTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-bLinked-bLinkedTests.a */; };
 		78ADE13025BE4D71A05574FA /* MuseoSans-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9CCEFF19943B4F63A0D6790A /* MuseoSans-Medium.otf */; };
+		7F4F0E82A35243CAB5385BE4 /* Inter-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B0BE46D8D636499ABE94C6E5 /* Inter-Medium.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		C0E6BAE6F17E4C119F7D0669 /* NotoSansJP-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0E0865B764874A06B58BE27B /* NotoSansJP-Regular.otf */; };
 		CB87C0B7B1444B9E8DACF9DC /* Nunito-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E039945DE39445CA0F57FAB /* Nunito-Regular.ttf */; };
@@ -36,6 +38,7 @@
 		00E356EE1AD99517003FC87E /* bLinkedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = bLinkedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* bLinkedTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = bLinkedTests.m; sourceTree = "<group>"; };
+		05E41777DF1A4AC996A42064 /* Inter-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Regular.ttf"; path = "../src/assets/fonts/Inter-Regular.ttf"; sourceTree = "<group>"; };
 		0E039945DE39445CA0F57FAB /* Nunito-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Nunito-Regular.ttf"; path = "../src/assets/fonts/Nunito-Regular.ttf"; sourceTree = "<group>"; };
 		0E0865B764874A06B58BE27B /* NotoSansJP-Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "NotoSansJP-Regular.otf"; path = "../src/assets/fonts/NotoSansJP-Regular.otf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* bLinked.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bLinked.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -53,6 +56,7 @@
 		89C6BE57DB24E9ADA2F236DE /* Pods-bLinked-bLinkedTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bLinked-bLinkedTests.release.xcconfig"; path = "Target Support Files/Pods-bLinked-bLinkedTests/Pods-bLinked-bLinkedTests.release.xcconfig"; sourceTree = "<group>"; };
 		9CCEFF19943B4F63A0D6790A /* MuseoSans-Medium.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "MuseoSans-Medium.otf"; path = "../src/assets/fonts/MuseoSans-Medium.otf"; sourceTree = "<group>"; };
 		A6F6F1CB408F4665910F05B7 /* Inter-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-SemiBold.ttf"; path = "../src/assets/fonts/Inter-SemiBold.ttf"; sourceTree = "<group>"; };
+		B0BE46D8D636499ABE94C6E5 /* Inter-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Inter-Medium.ttf"; path = "../src/assets/fonts/Inter-Medium.ttf"; sourceTree = "<group>"; };
 		BB2D85267CFB4899B47455D9 /* NotoSansJP-Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "NotoSansJP-Bold.otf"; path = "../src/assets/fonts/NotoSansJP-Bold.otf"; sourceTree = "<group>"; };
 		BC03235B5CED4716B8E6E944 /* NotoSansJP-Medium.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "NotoSansJP-Medium.otf"; path = "../src/assets/fonts/NotoSansJP-Medium.otf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -127,6 +131,8 @@
 				A6F6F1CB408F4665910F05B7 /* Inter-SemiBold.ttf */,
 				0E039945DE39445CA0F57FAB /* Nunito-Regular.ttf */,
 				9CCEFF19943B4F63A0D6790A /* MuseoSans-Medium.otf */,
+				B0BE46D8D636499ABE94C6E5 /* Inter-Medium.ttf */,
+				05E41777DF1A4AC996A42064 /* Inter-Regular.ttf */,
 			);
 			name = Resources;
 			path = "";
@@ -277,6 +283,8 @@
 				D9C3F4DE253945E994BAA9B0 /* Inter-SemiBold.ttf in Resources */,
 				CB87C0B7B1444B9E8DACF9DC /* Nunito-Regular.ttf in Resources */,
 				78ADE13025BE4D71A05574FA /* MuseoSans-Medium.otf in Resources */,
+				7F4F0E82A35243CAB5385BE4 /* Inter-Medium.ttf in Resources */,
+				1659065C76C045E1A1C86642 /* Inter-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

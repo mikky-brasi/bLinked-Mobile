@@ -1,33 +1,70 @@
+import {BottomSheetModal} from '@gorhom/bottom-sheet';
+import {useNavigation} from '@react-navigation/core';
+import {StackNavigationProp} from '@react-navigation/stack';
+import React, {useRef, useState} from 'react';
 import {
   Image,
-  StyleSheet,
-  Text,
-  View,
   SafeAreaView,
-  TouchableOpacity,
   ScrollView,
+  StyleSheet,
   Switch,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import React, {useState} from 'react';
-import {colors} from '../../themes/Colors';
-import {units} from '../../themes/Units';
-import {useDispatch} from 'react-redux';
-import {logOutAccount} from '../../context/userSlice';
-import Loading from '../components/Loading';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Octicons from 'react-native-vector-icons/Octicons';
-import useFirebaseAuth from '../../services/firebase/auth';
-import ChevronForwardIcon from '../../assets/icons/chevron-forward.svg';
+import {useDispatch} from 'react-redux';
+import {logOutAccount} from '../../../context/userSlice';
+import {MainNavigatorParamList} from '../../../navigation/MainNavigator';
+import {routes} from '../../../navigation/routes';
+import useFirebaseAuth from '../../../services/firebase/auth';
+import {colors} from '../../../themes/Colors';
+import {units} from '../../../themes/Units';
+import Loading from '../../components/Loading';
+import {ConfirmOfflineBottomSheet} from './ConfirmOfflineBottomSheet';
+import ChevronForwardIcon from '../../../assets/icons/chevron-forward.svg';
+
+const WITH_PENDING_ORDER = false;
 
 const Home = () => {
   const {loading} = useFirebaseAuth();
   const [isEnabled, setIsEnabled] = useState(false);
   const dispatch = useDispatch();
 
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  const navigation =
+    useNavigation<
+      StackNavigationProp<MainNavigatorParamList, typeof routes['HOMETAB']>
+    >();
+
+  const toggleSwitch = () => {
+    if (!isEnabled) {
+      setIsEnabled(true);
+      return;
+    }
+
+    bottomSheetModalRef.current?.present();
+  };
 
   const onClickLogout = () => {
     dispatch(logOutAccount());
+  };
+
+  const seeAllEarnings = () => {
+    navigation.navigate('EarningsScreen');
+  };
+
+  const goToOrders = () => {
+    navigation.navigate('OrdersScreen');
+  };
+
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+
+  const handleOfflineConfirm = () => {
+    setIsEnabled(false);
+    setTimeout(() => {
+      bottomSheetModalRef.current?.dismiss();
+    });
   };
 
   return (
@@ -38,7 +75,7 @@ const Home = () => {
           <View style={styles.topbar}>
             <View style={{display: 'flex', flexDirection: 'row'}}>
               <TouchableOpacity onPress={onClickLogout}>
-                <Image source={require('../../assets/images/avatar.png')} />
+                <Image source={require('../../../assets/images/avatar.png')} />
               </TouchableOpacity>
               <View style={{marginLeft: 10}}>
                 <Text style={styles.greetText}>Hello Jason,</Text>
@@ -93,15 +130,16 @@ const Home = () => {
                   </View>
                 </View>
 
-                <View
+                <TouchableOpacity
                   style={[
                     styles.assignToDetail,
                     styles.flexRow,
                     {justifyContent: 'space-between', alignItems: 'center'},
-                  ]}>
+                  ]}
+                  onPress={goToOrders}>
                   <Text style={styles.detailText}>View details</Text>
                   <ChevronForwardIcon />
-                </View>
+                </TouchableOpacity>
               </View>
             </View>
           </View>
@@ -109,7 +147,9 @@ const Home = () => {
           <View style={styles.earningContainer}>
             <View style={styles.earningHeader}>
               <Text style={styles.earningTitle}>My Earnings</Text>
-              <Text style={styles.seeAll}>See all</Text>
+              <Text style={styles.seeAll} onPress={seeAllEarnings}>
+                See all
+              </Text>
             </View>
             <View>
               <View style={styles.earningItem}>
@@ -165,6 +205,13 @@ const Home = () => {
           </View>
         </View>
       </ScrollView>
+
+      <ConfirmOfflineBottomSheet
+        key={WITH_PENDING_ORDER + ''}
+        bottomSheetRef={bottomSheetModalRef}
+        onConfirm={handleOfflineConfirm}
+        withPendingOrder={WITH_PENDING_ORDER}
+      />
     </SafeAreaView>
   );
 };
