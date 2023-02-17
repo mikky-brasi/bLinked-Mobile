@@ -1,26 +1,30 @@
+import {BottomSheetModal} from '@gorhom/bottom-sheet';
+import {useNavigation} from '@react-navigation/core';
+import {StackNavigationProp} from '@react-navigation/stack';
+import React, {useRef, useState} from 'react';
 import {
   Image,
-  StyleSheet,
-  Text,
-  View,
   SafeAreaView,
-  TouchableOpacity,
   ScrollView,
+  StyleSheet,
   Switch,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import React, {useState} from 'react';
-import {colors} from '../../themes/Colors';
-import {units} from '../../themes/Units';
-import {useDispatch} from 'react-redux';
-import {logOutAccount} from '../../context/userSlice';
-import Loading from '../components/Loading';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Octicons from 'react-native-vector-icons/Octicons';
-import useFirebaseAuth from '../../services/firebase/auth';
-import {StackNavigationProp} from '@react-navigation/stack';
-import {MainNavigatorParamList} from '../../navigation/MainNavigator';
-import {routes} from '../../navigation/routes';
-import {useNavigation} from '@react-navigation/core';
+import {useDispatch} from 'react-redux';
+import {logOutAccount} from '../../../context/userSlice';
+import {MainNavigatorParamList} from '../../../navigation/MainNavigator';
+import {routes} from '../../../navigation/routes';
+import useFirebaseAuth from '../../../services/firebase/auth';
+import {colors} from '../../../themes/Colors';
+import {units} from '../../../themes/Units';
+import Loading from '../../components/Loading';
+import {ConfirmOfflineBottomSheet} from './ConfirmOfflineBottomSheet';
+
+const WITH_PENDING_ORDER = false;
 
 const Home = () => {
   const {loading} = useFirebaseAuth();
@@ -32,7 +36,14 @@ const Home = () => {
       StackNavigationProp<MainNavigatorParamList, typeof routes['HOMETAB']>
     >();
 
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  const toggleSwitch = () => {
+    if (!isEnabled) {
+      setIsEnabled(true);
+      return;
+    }
+
+    bottomSheetModalRef.current?.present();
+  };
 
   const onClickLogout = () => {
     dispatch(logOutAccount());
@@ -46,6 +57,15 @@ const Home = () => {
     navigation.navigate('OrdersScreen');
   };
 
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+
+  const handleOfflineConfirm = () => {
+    setIsEnabled(false);
+    setTimeout(() => {
+      bottomSheetModalRef.current?.dismiss();
+    });
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       {loading && <Loading />}
@@ -54,7 +74,7 @@ const Home = () => {
           <View style={styles.topbar}>
             <View style={{display: 'flex', flexDirection: 'row'}}>
               <TouchableOpacity onPress={onClickLogout}>
-                <Image source={require('../../assets/images/avatar.png')} />
+                <Image source={require('../../../assets/images/avatar.png')} />
               </TouchableOpacity>
               <View style={{marginLeft: 10}}>
                 <Text style={styles.greetText}>Hello Jason,</Text>
@@ -184,6 +204,13 @@ const Home = () => {
           </View>
         </View>
       </ScrollView>
+
+      <ConfirmOfflineBottomSheet
+        key={WITH_PENDING_ORDER + ''}
+        bottomSheetRef={bottomSheetModalRef}
+        onConfirm={handleOfflineConfirm}
+        withPendingOrder={WITH_PENDING_ORDER}
+      />
     </SafeAreaView>
   );
 };

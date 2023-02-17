@@ -5,10 +5,11 @@ import {useRelativeLayout} from '../hooks/useLayout';
 type Props = {
   style?: StyleProp<ViewStyle>;
   status: 'new' | 'pending' | 'fulfilled';
+  compact?: boolean;
 };
 
 export function OrderTimeline(props: Props) {
-  const {status} = props;
+  const {status, compact} = props;
   const parentRef = useRef<View>(null);
 
   const dot1Ref = useRef<View>(null);
@@ -56,10 +57,12 @@ export function OrderTimeline(props: Props) {
         />
 
         <View style={timelineStyles.timelineContent}>
-          <Text style={timelineStyles.itemFrom}>
-            From Joy Omo
-            <Text style={timelineStyles.itemId}> 09029144116</Text>
-          </Text>
+          {!compact && (
+            <Text style={timelineStyles.itemFrom}>
+              From Joy Omo
+              <Text style={timelineStyles.itemId}> 09029144116</Text>
+            </Text>
+          )}
 
           <Text style={timelineStyles.itemAddress}>
             4 Isolo Ire-Akari Estate, Lagos Nigeria
