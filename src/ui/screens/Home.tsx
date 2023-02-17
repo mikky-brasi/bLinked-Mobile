@@ -17,6 +17,7 @@ import Loading from '../components/Loading';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Octicons from 'react-native-vector-icons/Octicons';
 import useFirebaseAuth from '../../services/firebase/auth';
+import ChevronForwardIcon from '../../assets/icons/chevron-forward.svg';
 
 const Home = () => {
   const {loading} = useFirebaseAuth();
@@ -99,7 +100,7 @@ const Home = () => {
                     {justifyContent: 'space-between', alignItems: 'center'},
                   ]}>
                   <Text style={styles.detailText}>View details</Text>
-                  <Text style={styles.detailText}>{'>'}</Text>
+                  <ChevronForwardIcon />
                 </View>
               </View>
             </View>
