@@ -23,6 +23,7 @@ import {colors} from '../../../themes/Colors';
 import {units} from '../../../themes/Units';
 import Loading from '../../components/Loading';
 import {ConfirmOfflineBottomSheet} from './ConfirmOfflineBottomSheet';
+import ChevronForwardIcon from '../../../assets/icons/chevron-forward.svg';
 
 const WITH_PENDING_ORDER = false;
 
@@ -137,7 +138,7 @@ const Home = () => {
                   ]}
                   onPress={goToOrders}>
                   <Text style={styles.detailText}>View details</Text>
-                  <Text style={styles.detailText}>{'>'}</Text>
+                  <ChevronForwardIcon />
                 </TouchableOpacity>
               </View>
             </View>
