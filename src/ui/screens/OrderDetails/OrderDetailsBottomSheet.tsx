@@ -2,7 +2,9 @@ import BottomSheet, {
   BottomSheetView,
   useBottomSheetDynamicSnapPoints,
 } from '@gorhom/bottom-sheet';
-import React, {useMemo, useRef} from 'react';
+import {useNavigation} from '@react-navigation/core';
+import {StackNavigationProp} from '@react-navigation/stack';
+import React, {useMemo} from 'react';
 import {
   Image,
   ImageStyle,
@@ -15,9 +17,11 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import SmsIcon from '../../../assets/icons/sms.svg';
 import WhatsappIcon from '../../../assets/icons/whatsapp.svg';
 import memojiSrc from '../../../assets/images/memoji.png';
+import {MainNavigatorParamList} from '../../../navigation/MainNavigator';
+import {routes} from '../../../navigation/routes';
 import {colors} from '../../../themes/Colors';
 import {OrderStatusTag} from '../../components/OrderStatusTag';
-import {useRelativeLayout} from '../../hooks/useLayout';
+import {OrderTimeline} from '../../components/OrderTimeline';
 
 type OrderDetailsBottomSheetProps = {
   status: 'new' | 'pending';
@@ -36,6 +40,9 @@ export function OrderDetailsBottomSheet(props: OrderDetailsBottomSheetProps) {
 
   const bottomSheetRef = React.useRef<BottomSheet>(null);
 
+  const navigation =
+    useNavigation<StackNavigationProp<MainNavigatorParamList>>();
+
   let mainButton: {
     title: string;
     onPress?: () => void;
@@ -50,6 +57,7 @@ export function OrderDetailsBottomSheet(props: OrderDetailsBottomSheetProps) {
     case 'pending':
       mainButton = {
         title: 'Deliver order',
+        onPress: () => navigation.navigate(routes.CONFIRMDELIVERY),
       };
       break;
   }
@@ -71,7 +79,7 @@ export function OrderDetailsBottomSheet(props: OrderDetailsBottomSheetProps) {
           <OrderStatusTag status={status} style={styles.tag} />
         </View>
 
-        <Timeline />
+        <OrderTimeline style={styles.timeline} status={status} />
 
         {status !== 'pending' && (
           <>
@@ -141,6 +149,10 @@ const styles = StyleSheet.create({
   },
   tag: {
     marginRight: 16,
+  },
+  timeline: {
+    marginTop: 20,
+    marginBottom: 36,
   },
   customerDetailsTitle: {
     fontFamily: 'Noto Sans JP',
@@ -219,163 +231,5 @@ const styles = StyleSheet.create({
     fontFamily: 'Noto Sans JP',
     fontWeight: '500',
     fontSize: 16,
-  },
-});
-
-function Timeline() {
-  const parentRef = useRef<View>(null);
-
-  const dot1Ref = useRef<View>(null);
-  const [dot1Layout, onSetDot1Layout] = useRelativeLayout(dot1Ref, parentRef);
-
-  const dot2Ref = useRef<View>(null);
-  const [dot2Layout, onSetDot2Layout] = useRelativeLayout(dot2Ref, parentRef);
-
-  let data:
-    | {
-        height: number;
-        dashes: null[];
-        spacing: number;
-        top: number;
-        left: number;
-      }
-    | undefined;
-
-  if (dot1Layout && dot2Layout) {
-    const height = dot2Layout.y - (dot1Layout.y + dot1Layout.height) - 4;
-    const spacing = 8;
-    const dashes = new Array(Math.max(0, Math.floor(height / spacing))).fill(
-      null,
-    );
-
-    data = {
-      top: dot1Layout.y + dot1Layout.height + 2,
-      left: dot1Layout.x + dot1Layout.width / 2 - 1.5,
-      height,
-      dashes,
-      spacing,
-    };
-  }
-
-  return (
-    <View ref={parentRef} style={timelineStyles.timelineContainer}>
-      <View style={timelineStyles.timelineItem}>
-        <View
-          ref={dot1Ref}
-          style={[
-            timelineStyles.timelineItemDot,
-            timelineStyles.timelineItemDotGreen,
-          ]}
-          onLayout={onSetDot1Layout}
-        />
-
-        <View style={timelineStyles.timelineContent}>
-          <Text style={timelineStyles.itemFrom}>
-            From Joy Omo
-            <Text style={timelineStyles.itemId}> 09029144116</Text>
-          </Text>
-
-          <Text style={timelineStyles.itemAddress}>
-            4 Isolo Ire-Akari Estate, Lagos Nigeria
-          </Text>
-        </View>
-      </View>
-
-      <View style={timelineStyles.timelineItemSeparator} />
-
-      <View style={timelineStyles.timelineItem}>
-        <View
-          ref={dot2Ref}
-          style={[
-            timelineStyles.timelineItemDot,
-            timelineStyles.timelineItemDotViolet,
-          ]}
-          onLayout={onSetDot2Layout}
-        />
-
-        <View style={timelineStyles.timelineContent}>
-          <Text style={timelineStyles.itemAddress}>
-            4 Isolo Ire-Akari Estate, Lagos Nigeria
-          </Text>
-        </View>
-      </View>
-
-      {data && (
-        <View
-          style={[
-            timelineStyles.dottedLineContainer,
-            {
-              height: data.height,
-              top: data.top,
-              left: data.left,
-            },
-          ]}>
-          {data.dashes.map((_, index) => (
-            <View key={index} style={timelineStyles.dottedLine} />
-          ))}
-        </View>
-      )}
-    </View>
-  );
-}
-
-const timelineStyles = StyleSheet.create({
-  itemAddress: {
-    fontFamily: 'Noto Sans JP',
-    fontSize: 14,
-    color: 'rgba(98, 106, 122, 1)',
-  },
-  timelineContainer: {
-    marginTop: 20,
-    marginBottom: 36,
-  },
-  timelineItem: {
-    flexDirection: 'row',
-    alignItems: 'baseline',
-  },
-  timelineItemDot: {
-    top: 2,
-    width: 14,
-    height: 14,
-    borderRadius: 7,
-    borderWidth: 2,
-    marginLeft: 16,
-  },
-  timelineItemDotGreen: {
-    backgroundColor: 'rgba(39, 174, 96, 1)',
-    borderColor: 'rgba(237, 250, 240, 1)',
-  },
-  timelineItemDotViolet: {
-    backgroundColor: 'rgba(56, 66, 176, 1)',
-    borderColor: 'rgba(218, 222, 255, 1)',
-  },
-  timelineContent: {
-    paddingLeft: 12,
-  },
-  itemFrom: {
-    fontFamily: 'Noto Sans JP',
-    fontWeight: '700',
-    fontSize: 16,
-    color: 'rgba(14, 8, 66, 1)',
-    marginBottom: 4,
-  },
-  itemId: {
-    fontFamily: 'Noto Sans JP',
-    color: 'rgba(98, 106, 122, 1)',
-    fontWeight: '400',
-  },
-  timelineItemSeparator: {
-    height: 36,
-  },
-  dottedLineContainer: {
-    position: 'absolute',
-    width: 3,
-    paddingHorizontal: 1,
-  },
-  dottedLine: {
-    backgroundColor: 'rgba(225, 225, 235, 1)',
-    width: 1,
-    flexGrow: 1,
-    marginVertical: 2,
   },
 });
