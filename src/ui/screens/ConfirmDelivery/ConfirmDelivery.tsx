@@ -106,13 +106,13 @@ function OtpCode(props: OtpCodeProps) {
     <>
       <View style={otpStyles.wrapper}>
         {inputs.map((input, index) => (
-          <>
+          <React.Fragment key={index}>
             <TextInput textAlign="center" selectTextOnFocus {...input.props} />
 
             {index !== inputs.length - 1 && (
               <View style={otpStyles.cellInputSeparator} />
             )}
-          </>
+          </React.Fragment>
         ))}
       </View>
 
