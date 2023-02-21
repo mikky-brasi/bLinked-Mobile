@@ -6,6 +6,7 @@ import {units} from '../../themes/Units';
 import {routes} from '../../navigation/routes';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {AuthParamList} from '../../navigation/AuthNavigator';
+import LogoSvg from '../../assets/images/Logo.svg';
 
 type Props = NativeStackScreenProps<AuthParamList, 'MainScreen'>;
 
@@ -22,7 +23,7 @@ const Main = ({navigation}: Props) => {
     <SafeAreaView style={styles.container}>
       <View style={styles.bodyContainer}>
         <View style={styles.logoContainer}>
-          <Image source={require('../../assets/images/Logo-1.png')} />
+          <LogoSvg />
         </View>
         <View style={styles.deliverContainer}>
           <Image source={require('../../assets/images/deliver.png')} />
@@ -65,16 +66,14 @@ export default Main;
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
-    // backgroundColor: colors.WHITE,
-    height: '100%',
-    width: '100%',
+    flex: 1,
+    backgroundColor: colors.WHITE,
   },
   bodyContainer: {
     width: '100%',
     paddingHorizontal: units.width / 10.7,
     marginTop: units.height / 9.23,
-    // marginBottom: units.height / 15.32,
+    flex: 1,
   },
   logoContainer: {
     width: '100%',
@@ -88,6 +87,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    flexGrow: 1,
+    flexShrink: 1,
   },
   textContainer: {
     marginTop: units.height / 36.23,
@@ -102,6 +103,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    paddingBottom: 8,
   },
   buttonContainer1: {
     marginTop: units.height / 17.84,

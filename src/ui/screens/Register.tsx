@@ -4,7 +4,6 @@ import {
   View,
   SafeAreaView,
   TouchableOpacity,
-  Image,
 } from 'react-native';
 import React from 'react';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -19,13 +18,14 @@ import Loading from '../components/Loading';
 import {routes} from '../../navigation/routes';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {AuthParamList} from '../../navigation/AuthNavigator';
+import LogoSvg from '../../assets/images/Logo.svg';
 
 type Props = NativeStackScreenProps<AuthParamList, 'RegisterScreen'>;
 
 const Register = ({navigation}: Props) => {
   const {loading} = useFirebaseAuth();
 
-  const registerIntialValue = {
+  const registerInitialValue = {
     email: '',
     fullName: '',
     phoneNumber: '',
@@ -43,92 +43,81 @@ const Register = ({navigation}: Props) => {
     navigation.navigate(routes.VERIFY);
   };
 
-  const onClickLogin = () => {
-    navigation.navigate(routes.LOGIN);
-  };
-
-  const onClickBack = () => {
-    navigation.goBack();
+  const goToLogin = () => {
+    navigation.navigate(routes.LOGINMAIN);
   };
 
   return (
     <SafeAreaView style={styles.container}>
       {loading && <Loading />}
-      <View style={styles.statusContainer} />
-      <View style={styles.backContainer}>
-        <TouchableOpacity onPress={onClickBack}>
-          <Text style={{fontFamily: 'Nunito', fontSize: 12, color: '#5A5D82'}}>
-            {'<'} Back
-          </Text>
-        </TouchableOpacity>
-      </View>
-      <KeyboardAwareScrollView>
+
+      <KeyboardAwareScrollView
+        contentContainerStyle={styles.keyboardAwareContentContainer}>
         <View style={styles.bodyContainer}>
           <View style={styles.logoContainer}>
-            <Image source={require('../../assets/images/Logo-2.png')} />
+            <LogoSvg width={127} />
           </View>
           <View style={styles.textContainer}>
             <Text style={styles.text1}>Let's get you started</Text>
-            <Text style={styles.text2}>First of, let's get to know you</Text>
+            <Text style={styles.text2}>First of, let’s get to know you 👇🏽</Text>
           </View>
-          <View>
-            <Formik
-              initialValues={registerIntialValue}
-              onSubmit={handleContinue}
-              validationSchema={registerValidationSchema}>
-              {({values, errors, touched, handleChange, handleSubmit}) => (
-                <>
-                  <View style={{marginTop: units.height / 20.52}}>
-                    <CustomInput
-                      placeHolder="Full Name"
-                      value={values.fullName}
-                      onChangeText={handleChange('fullName')}
-                    />
-                    {errors.fullName && touched.fullName && (
-                      <Text style={styles.errorText}>{errors.fullName}</Text>
-                    )}
-                  </View>
-                  <View style={{marginTop: units.height / 20.52}}>
-                    <CustomInput
-                      placeHolder="Phone number"
-                      value={values.phoneNumber}
-                      onChangeText={handleChange('phoneNumber')}
-                      type="phone-pad"
-                    />
-                    {errors.phoneNumber && touched.phoneNumber && (
-                      <Text style={styles.errorText}>{errors.phoneNumber}</Text>
-                    )}
-                  </View>
-                  <View style={{marginTop: units.height / 20.52}}>
-                    <CustomInput
-                      placeHolder="Email address"
-                      type="email-address"
-                      value={values.email}
-                      onChangeText={handleChange('email')}
-                    />
-                    {errors.email && touched.email && (
-                      <Text style={styles.errorText}>{errors.email}</Text>
-                    )}
-                  </View>
-                  <View style={styles.buttonContainer}>
-                    <CustomButton
-                      title="Continue"
-                      onPress={handleSubmit}
-                      backColor="#3842B0"
-                      fontColor="#FFFFFF"
-                    />
-                    <View style={styles.loginContainer}>
-                      <TouchableOpacity onPress={onClickLogin}>
-                        <Text style={styles.signInText}>
-                          Have an account already? Login
-                        </Text>
-                      </TouchableOpacity>
-                    </View>
-                  </View>
-                </>
-              )}
-            </Formik>
-          </View>
+          <Formik
+            initialValues={registerInitialValue}
+            onSubmit={handleContinue}
+            validationSchema={registerValidationSchema}>
+            {({values, errors, touched, handleChange, handleSubmit}) => (
+              <>
+                <View style={{marginTop: 38}}>
+                  <CustomInput
+                    placeHolder="Full Name"
+                    value={values.fullName}
+                    onChangeText={handleChange('fullName')}
+                  />
+                  {errors.fullName && touched.fullName && (
+                    <Text style={styles.errorText}>{errors.fullName}</Text>
+                  )}
+                </View>
+                <View style={{marginTop: 38}}>
+                  <CustomInput
+                    placeHolder="Phone number"
+                    value={values.phoneNumber}
+                    onChangeText={handleChange('phoneNumber')}
+                    type="phone-pad"
+                  />
+                  {errors.phoneNumber && touched.phoneNumber && (
+                    <Text style={styles.errorText}>{errors.phoneNumber}</Text>
+                  )}
+                </View>
+                <View style={{marginTop: 38}}>
+                  <CustomInput
+                    placeHolder="Email address"
+                    type="email-address"
+                    value={values.email}
+                    onChangeText={handleChange('email')}
+                  />
+                  {errors.email && touched.email && (
+                    <Text style={styles.errorText}>{errors.email}</Text>
+                  )}
+                </View>
+                <View style={styles.buttonContainer}>
+                  <CustomButton
+                    title="Continue"
+                    onPress={handleSubmit}
+                    backColor="#3842B0"
+                    fontColor="#FFFFFF"
+                  />
+                </View>
+
+                <View style={styles.signInContainer}>
+                  <TouchableOpacity onPress={goToLogin}>
+                    <Text style={styles.signInText}>
+                      Have an account already? Log in
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </>
+            )}
+          </Formik>
         </View>
       </KeyboardAwareScrollView>
     </SafeAreaView>
@@ -138,15 +127,8 @@ const Register = ({navigation}: Props) => {
 export default Register;
 
 const styles = StyleSheet.create({
-  statusContainer: {
-    width: units.width,
-    height: units.height / 18.65,
-  },
-  backContainer: {
-    marginTop: units.height / 74.63,
-    marginLeft: units.width / 37.5,
-    width: 120,
-    height: 20,
+  keyboardAwareContentContainer: {
+    flexGrow: 1,
   },
   container: {
     flex: 1,
@@ -158,8 +140,8 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   bodyContainer: {
-    paddingHorizontal: units.width / 41.05,
-    marginTop: units.height / 25.62,
+    paddingHorizontal: 16,
+    flexGrow: 1,
   },
   logoContainer: {
     width: '100%',
@@ -192,13 +174,7 @@ const styles = StyleSheet.create({
     marginBottom: units.height / 67,
   },
   buttonContainer: {
-    marginTop: units.height / 14.92,
-  },
-  loginContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: units.height / 25,
+    marginTop: 56,
   },
   line: {
     height: 1,
@@ -217,5 +193,11 @@ const styles = StyleSheet.create({
     fontFamily: 'Noto Sans JP',
     fontWeight: '500',
     fontSize: 14,
+  },
+  signInContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 24,
   },
 });

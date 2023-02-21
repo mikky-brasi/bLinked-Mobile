@@ -7,7 +7,6 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import {colors} from '../../themes/Colors';
-import {units} from '../../themes/Units';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 type Props = {
@@ -77,8 +76,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     flex: 1,
     fontFamily: 'Museo Sans',
+    paddingVertical: 8,
   },
   icon: {
-    marginRight: units.width / 16,
+    marginRight: 8,
   },
 });

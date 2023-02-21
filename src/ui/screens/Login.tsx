@@ -4,7 +4,6 @@ import {
   View,
   SafeAreaView,
   TouchableOpacity,
-  Image,
 } from 'react-native';
 import React from 'react';
 import CustomInput from '../components/CustomInput';
@@ -19,6 +18,7 @@ import Loading from '../components/Loading';
 import useFirebaseAuth from '../../services/firebase/auth';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {AuthParamList} from '../../navigation/AuthNavigator';
+import LogoSvg from '../../assets/images/Logo.svg';
 
 const loginValidationSchema = Yup.object({
   password: Yup.string().required('This field is required'),
@@ -54,6 +54,7 @@ const Login = ({navigation}: VerifyProps) => {
             fontFamily: 'Noto Sans JP',
             fontSize: 16,
             color: colors.PURPLE,
+            marginRight: 8,
           }}>
           Help
         </Text>
@@ -61,11 +62,11 @@ const Login = ({navigation}: VerifyProps) => {
       <KeyboardAwareScrollView>
         <View style={styles.bodyContainer}>
           <View style={styles.logoContainer}>
-            <Image source={require('../../assets/images/Logo-2.png')} />
+            <LogoSvg width={127} />
           </View>
           <View style={styles.textContainer}>
             <Text style={styles.text1}>Hello Buddy,</Text>
-            <Text style={styles.text2}>Welcome, log in to your account</Text>
+            <Text style={styles.text2}>Welcome, log in to your account 👏🏽</Text>
           </View>
           <Formik
             initialValues={initialLoginValue}
@@ -73,7 +74,8 @@ const Login = ({navigation}: VerifyProps) => {
             validationSchema={loginValidationSchema}>
             {({values, errors, touched, handleChange, handleSubmit}) => (
               <>
-                <View style={{marginTop: units.height / 27}}>
+                <View
+                  style={{marginTop: units.height / 27, paddingHorizontal: 8}}>
                   <CustomInput
                     placeHolder="Password"
                     value={values.password}
@@ -175,6 +177,7 @@ const styles = StyleSheet.create({
     color: colors.PURPLE,
     fontFamily: 'Museo Sans',
     fontSize: 16,
+    marginLeft: 8,
   },
   loginContainer: {
     marginVertical: units.height / 25,

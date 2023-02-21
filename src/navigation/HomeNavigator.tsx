@@ -19,6 +19,9 @@ const HomeNavigator = () => {
         headerShown: false,
         tabBarActiveTintColor: colors.PURPLE,
         tabBarInactiveTintColor: colors.DARKGRAY,
+        tabBarStyle: {
+          backgroundColor: '#F9FBFF',
+        },
       }}>
       <Tab.Screen
         name={routes.HOME}

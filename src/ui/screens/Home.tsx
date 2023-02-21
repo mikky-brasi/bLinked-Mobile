@@ -17,6 +17,7 @@ import Loading from '../components/Loading';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Octicons from 'react-native-vector-icons/Octicons';
 import useFirebaseAuth from '../../services/firebase/auth';
+import ChevronForwardIcon from '../../assets/icons/chevron-forward.svg';
 
 const Home = () => {
   const {loading} = useFirebaseAuth();
@@ -32,7 +33,6 @@ const Home = () => {
   return (
     <SafeAreaView style={styles.container}>
       {loading && <Loading />}
-      <View style={styles.statusContainer} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.bodyContainer}>
           <View style={styles.topbar}>
@@ -57,9 +57,9 @@ const Home = () => {
               {isEnabled ? "I'm accepting orders" : 'I’m currently offline'}
             </Text>
             <Switch
-              trackColor={{false: '#CCCCCC', true: '#27AE60'}}
+              trackColor={{true: '#27AE60'}}
               thumbColor={isEnabled ? '#FFFFFF' : '#FFFFFF'}
-              ios_backgroundColor="#3e3e3e"
+              ios_backgroundColor="#ccc"
               onValueChange={toggleSwitch}
               value={isEnabled}
             />
@@ -71,7 +71,11 @@ const Home = () => {
               <Icon name="dots-vertical" size={20} color={'#444444'} />
             </View>
             <View style={styles.assignBody}>
-              <View style={styles.assignBodyHeader} />
+              <View style={styles.assignBodyHeader}>
+                <Text style={styles.assignBodyHeaderText1}>Now</Text>
+                <Text style={styles.assignBodyHeaderText2}>₦4,700.00</Text>
+              </View>
+
               <View style={styles.assignBodyMain}>
                 <View style={styles.assginDetails}>
                   <View style={styles.flexRow}>
@@ -96,7 +100,7 @@ const Home = () => {
                     {justifyContent: 'space-between', alignItems: 'center'},
                   ]}>
                   <Text style={styles.detailText}>View details</Text>
-                  <Text style={styles.detailText}>{'>'}</Text>
+                  <ChevronForwardIcon />
                 </View>
               </View>
             </View>
@@ -172,12 +176,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F6F7F8',
   },
-  statusContainer: {
-    width: units.width,
-    height: units.height / 18.65,
-  },
   bodyContainer: {
-    paddingHorizontal: units.width / 51.31,
+    paddingHorizontal: 16,
     marginTop: units.height / 63.15,
     marginBottom: units.height / 101,
   },
@@ -240,6 +240,22 @@ const styles = StyleSheet.create({
     backgroundColor: '#2F80ED',
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 16,
+  },
+  assignBodyHeaderText1: {
+    fontSize: 10,
+    fontFamily: 'Noto Sans JP',
+    fontWeight: '500',
+    color: colors.WHITE,
+  },
+  assignBodyHeaderText2: {
+    fontSize: 12,
+    fontFamily: 'Noto Sans JP',
+    fontWeight: '700',
+    color: colors.WHITE,
   },
   assignBodyMain: {
     paddingHorizontal: units.width / 23.43,
