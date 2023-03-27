@@ -11,4 +11,9 @@ export const routes = {
   HOME: 'HomeScreen',
   OPTION: 'OptionScreen',
   HISTORY: 'HistoryScreen',
+  EARNINGS: 'EarningsScreen',
+  ORDERS: 'OrdersScreen',
+  ORDERDETAILS: 'OrderDetailsScreen',
+  CONFIRMDELIVERY: 'ConfirmDeliveryScreen',
+  DELIVERYSUCCESS: 'DeliverySuccessScreen',
 } as const;

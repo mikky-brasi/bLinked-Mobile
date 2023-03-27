@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FeatherIcons from 'react-native-vector-icons/Feather';
 
-import Home from '../ui/screens/Home';
+import Home from '../ui/screens/Home/Home';
 import User from '../ui/screens/User';
 
 const Tab = createBottomTabNavigator();
